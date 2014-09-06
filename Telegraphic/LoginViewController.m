@@ -34,6 +34,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    gradient.bounds = self.view.bounds;
+    gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor yellowColor] CGColor], (id)[[UIColor orangeColor] CGColor], nil];
+    [self.view.layer insertSublayer:gradient atIndex:0];
+    
     [self registerKeyboardNotifications];
     
     queue = [[NSOperationQueue alloc] init];
