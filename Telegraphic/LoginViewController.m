@@ -11,6 +11,7 @@
 #import "APIFunctions.h"
 #import "SecretKeys.h"
 #import "DrawViewController.h"
+#import "TabViewController.h"
 
 @interface LoginViewController ()
 
@@ -68,11 +69,21 @@
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
         
         if(dict && [[dict objectForKey:@"success"] boolValue]) {
+            
+            NSLog(@"Successfully logged in!");
+            
             //now get access token and send to the tab view controller
             NSString *accessToken = [dict objectForKey:@"accessToken"];
-            
-            
-            
+
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                
+                TabViewController *tabVC =[[TabViewController alloc] initWithNavigationController:self.navigationController withAccessTokens:accessToken];
+                
+                [self.navigationController setViewControllers:@[tabVC]];
+                
+                [self.navigationController presentViewController:tabVC animated:YES completion:nil];
+            }];
+
         }
         
     }];
@@ -94,6 +105,9 @@
         
         if(dict && [[dict objectForKey:@"success"] boolValue]) {
             NSLog(@"Successfully registered the account");
+            
+            //now try to log in
+            [self loginButton:sender];
         }
         
     }];

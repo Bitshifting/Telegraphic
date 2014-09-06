@@ -29,9 +29,23 @@
     CGPoint origPoint2;
     
     UIButton *selectedButton;
+    int count;
 }
 
-@synthesize drawing, blueButton, redButton, greenButton, blackButton, eraseButton, brushScaleLabel;
+@synthesize drawing, blueButton, redButton, greenButton, blackButton, eraseButton, brushScaleLabel, navCont, timer, timerLabel, delegate, text;
+
+- (id)initWithNavViewController:(UINavigationController*)nNavCont withTime:(NSNumber*)nTime withText:(NSString *)nText {
+    
+    self = [super init];
+    
+    if(self) {
+        navCont = nNavCont;
+        timer = nTime;
+        text = nText;
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -119,6 +133,35 @@
     [brushScaleLabel setTextColor:[UIColor whiteColor]];
     
     [self.view addSubview:brushScaleLabel];
+    
+    timerLabel = [[UIOutlineLabel alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, heightOfButton)];
+    [timerLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    [self.view addSubview:timerLabel];
+    
+    //set a timer
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerHit:) userInfo:nil repeats:YES];
+    
+    count = 0;
+}
+
+-(IBAction)timerHit:(NSTimer*)sender {
+    
+    int counter = [timer intValue] - count;
+    //now that timer is hit, keep checking
+    [timerLabel setText:[NSString stringWithFormat:@"%d", [timer intValue] - count]];
+    
+    count++;
+    
+    if(counter == 0) {
+        [sender invalidate];
+        
+        [delegate drawViewEnded:drawing.tempDrawImage.image withText:text];
+        
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
 }
 
 -(IBAction)setColor:(id)sender {
@@ -164,7 +207,6 @@
     
     recognizer.scale = 1;
     
-
 }
 
 /*

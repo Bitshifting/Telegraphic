@@ -27,11 +27,11 @@
     return [self queryWithBody:[NSString stringWithFormat:@"%@/user/login", url] withDictionary:@{@"username": username, @"passwordHash" : passHash}];
 }
 
-+(NSMutableURLRequest*) createImage:(NSString*)url withAccessToken:(NSString*)apiToken withEditTime:(NSNumber*)editTime withHopsLeft:(NSNumber*)hopsLeft withNextUser:(NSString*)nextUser withImage:(NSData*)image {
++(NSMutableURLRequest*) createImage:(NSString*)url withAccessToken:(NSString*)apiToken withEditTime:(NSNumber*)editTime withHopsLeft:(NSNumber*)hopsLeft withNextUser:(NSString*)nextUser withImage:(NSString*)image {
     return [self queryWithBody:[NSString stringWithFormat:@"%@/image/create", url] withDictionary:@{@"accessToken": apiToken, @"editTime" : editTime, @"hopsLeft" : hopsLeft, @"nextUser" : nextUser, @"image" : image}];
 }
 
-+(NSMutableURLRequest*) updateImage:(NSString*)url withUUID:(NSString*)uuid withAccessToken:(NSString*)apiToken withNextUser:(NSString*)nextUser withImage:(NSData*)image {
++(NSMutableURLRequest*) updateImage:(NSString*)url withUUID:(NSString*)uuid withAccessToken:(NSString*)apiToken withNextUser:(NSString*)nextUser withImage:(NSString*)image {
     
     return [self queryWithBody:[NSString stringWithFormat:@"%@/image/update/%@", url, uuid] withDictionary:@{@"accessToken": apiToken,  @"nextUser" : nextUser, @"image" : image}];
 }

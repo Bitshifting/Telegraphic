@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FriendsTableViewController.h"
+#import "DrawViewController.h"
 
-@interface TabViewController : UITabBarController
+@interface TabViewController : UITabBarController <FriendsTableDelegate, DrawViewDelegate>
+
+@property NSMutableArray *tabBarItemArray;
+@property NSMutableArray *viewContArray;
+
+@property (weak) UINavigationController *navCont;
+@property NSString* accessToken;
+
+@property NSOperationQueue *queue;
+
+
+- (id) initWithNavigationController:(UINavigationController*)nNavCont withAccessTokens:(NSString*)apiToken;
 
 @end

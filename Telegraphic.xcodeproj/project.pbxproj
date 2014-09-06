@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F01667E19BB4AFE002405BA /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F01667D19BB4AFE002405BA /* TabViewController.m */; };
+		9F7BAC3C19BB48FB00318200 /* FriendsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7BAC3919BB48FB00318200 /* FriendsTableViewController.m */; };
+		9F7BAC3D19BB48FB00318200 /* ImagesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F7BAC3B19BB48FB00318200 /* ImagesTableViewController.m */; };
 		9F8E2EFC19BAF9E800737F83 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8E2EFB19BAF9E800737F83 /* Foundation.framework */; };
 		9F8E2EFE19BAF9E800737F83 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8E2EFD19BAF9E800737F83 /* CoreGraphics.framework */; };
 		9F8E2F0019BAF9E800737F83 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8E2EFF19BAF9E800737F83 /* UIKit.framework */; };
@@ -28,7 +31,6 @@
 		9FE1D04C19BB2A8600CE27EA /* SecretKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D04B19BB2A8600CE27EA /* SecretKeys.m */; };
 		9FE1D04F19BB2AD300CE27EA /* APIFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D04E19BB2AD300CE27EA /* APIFunctions.m */; };
 		9FE1D05219BB342500CE27EA /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D05119BB342500CE27EA /* NavigationViewController.m */; };
-		9FE1D05819BB41D200CE27EA /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D05719BB41D200CE27EA /* TabViewController.m */; };
 		A70A617B19BB0CE400FF5BC5 /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A70A617A19BB0CE400FF5BC5 /* InputTextField.m */; };
 		A782541B19BAFDF0005212A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A782541919BAFDF0005212A9 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
@@ -44,6 +46,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9F01667C19BB4AFE002405BA /* TabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController.h; sourceTree = "<group>"; };
+		9F01667D19BB4AFE002405BA /* TabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController.m; sourceTree = "<group>"; };
+		9F7BAC3819BB48FB00318200 /* FriendsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsTableViewController.h; sourceTree = "<group>"; };
+		9F7BAC3919BB48FB00318200 /* FriendsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTableViewController.m; sourceTree = "<group>"; };
+		9F7BAC3A19BB48FB00318200 /* ImagesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagesTableViewController.h; sourceTree = "<group>"; };
+		9F7BAC3B19BB48FB00318200 /* ImagesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagesTableViewController.m; sourceTree = "<group>"; };
 		9F8E2EF819BAF9E800737F83 /* Telegraphic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Telegraphic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F8E2EFB19BAF9E800737F83 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9F8E2EFD19BAF9E800737F83 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -77,8 +85,6 @@
 		9FE1D05019BB342500CE27EA /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
 		9FE1D05119BB342500CE27EA /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		9FE1D05319BB3B6E00CE27EA /* libcommonCrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcommonCrypto.dylib; path = usr/lib/system/libcommonCrypto.dylib; sourceTree = SDKROOT; };
-		9FE1D05619BB41D200CE27EA /* TabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController.h; sourceTree = "<group>"; };
-		9FE1D05719BB41D200CE27EA /* TabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController.m; sourceTree = "<group>"; };
 		A70A617919BB0CE400FF5BC5 /* InputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextField.h; sourceTree = "<group>"; };
 		A70A617A19BB0CE400FF5BC5 /* InputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextField.m; sourceTree = "<group>"; };
 		A782541819BAFDF0005212A9 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -145,6 +151,10 @@
 		9F8E2F0119BAF9E900737F83 /* Telegraphic */ = {
 			isa = PBXGroup;
 			children = (
+				9F7BAC3819BB48FB00318200 /* FriendsTableViewController.h */,
+				9F7BAC3919BB48FB00318200 /* FriendsTableViewController.m */,
+				9F7BAC3A19BB48FB00318200 /* ImagesTableViewController.h */,
+				9F7BAC3B19BB48FB00318200 /* ImagesTableViewController.m */,
 				A70A617819BB0CB500FF5BC5 /* UI */,
 				9FE1D04719BB29DF00CE27EA /* UIOutlineLabel.h */,
 				9FE1D04819BB29DF00CE27EA /* UIOutlineLabel.m */,
@@ -166,8 +176,8 @@
 				9FE1D04E19BB2AD300CE27EA /* APIFunctions.m */,
 				9FE1D05019BB342500CE27EA /* NavigationViewController.h */,
 				9FE1D05119BB342500CE27EA /* NavigationViewController.m */,
-				9FE1D05619BB41D200CE27EA /* TabViewController.h */,
-				9FE1D05719BB41D200CE27EA /* TabViewController.m */,
+				9F01667C19BB4AFE002405BA /* TabViewController.h */,
+				9F01667D19BB4AFE002405BA /* TabViewController.m */,
 			);
 			path = Telegraphic;
 			sourceTree = "<group>";
@@ -309,7 +319,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FE1D05819BB41D200CE27EA /* TabViewController.m in Sources */,
+				9F7BAC3C19BB48FB00318200 /* FriendsTableViewController.m in Sources */,
 				9FE1D05219BB342500CE27EA /* NavigationViewController.m in Sources */,
 				A70A617B19BB0CE400FF5BC5 /* InputTextField.m in Sources */,
 				9FE1D04C19BB2A8600CE27EA /* SecretKeys.m in Sources */,
@@ -321,6 +331,8 @@
 				9F8E2F0C19BAF9E900737F83 /* AppDelegate.m in Sources */,
 				9FE1D04F19BB2AD300CE27EA /* APIFunctions.m in Sources */,
 				9F8E2F0819BAF9E900737F83 /* main.m in Sources */,
+				9F01667E19BB4AFE002405BA /* TabViewController.m in Sources */,
+				9F7BAC3D19BB48FB00318200 /* ImagesTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
