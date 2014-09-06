@@ -22,6 +22,8 @@
 		9F8E2F2019BAF9E900737F83 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8E2EFF19BAF9E800737F83 /* UIKit.framework */; };
 		9F8E2F2819BAF9E900737F83 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F8E2F2619BAF9E900737F83 /* InfoPlist.strings */; };
 		9F8E2F2A19BAF9E900737F83 /* TelegraphicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E2F2919BAF9E900737F83 /* TelegraphicTests.m */; };
+		A70A617B19BB0CE400FF5BC5 /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A70A617A19BB0CE400FF5BC5 /* InputTextField.m */; };
+		A782541B19BAFDF0005212A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A782541919BAFDF0005212A9 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,10 @@
 		9F8E2F2519BAF9E900737F83 /* TelegraphicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TelegraphicTests-Info.plist"; sourceTree = "<group>"; };
 		9F8E2F2719BAF9E900737F83 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F8E2F2919BAF9E900737F83 /* TelegraphicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TelegraphicTests.m; sourceTree = "<group>"; };
+		A70A617919BB0CE400FF5BC5 /* InputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextField.h; sourceTree = "<group>"; };
+		A70A617A19BB0CE400FF5BC5 /* InputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextField.m; sourceTree = "<group>"; };
+		A782541819BAFDF0005212A9 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		A782541919BAFDF0005212A9 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +120,7 @@
 		9F8E2F0119BAF9E900737F83 /* Telegraphic */ = {
 			isa = PBXGroup;
 			children = (
+				A70A617819BB0CB500FF5BC5 /* UI */,
 				9F8E2F0A19BAF9E900737F83 /* AppDelegate.h */,
 				9F8E2F0B19BAF9E900737F83 /* AppDelegate.m */,
 				9F8E2F0D19BAF9E900737F83 /* Main_iPhone.storyboard */,
@@ -122,6 +129,8 @@
 				9F8E2F1419BAF9E900737F83 /* ViewController.m */,
 				9F8E2F1619BAF9E900737F83 /* Images.xcassets */,
 				9F8E2F0219BAF9E900737F83 /* Supporting Files */,
+				A782541819BAFDF0005212A9 /* LoginViewController.h */,
+				A782541919BAFDF0005212A9 /* LoginViewController.m */,
 			);
 			path = Telegraphic;
 			sourceTree = "<group>";
@@ -153,6 +162,15 @@
 				9F8E2F2619BAF9E900737F83 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A70A617819BB0CB500FF5BC5 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				A70A617919BB0CE400FF5BC5 /* InputTextField.h */,
+				A70A617A19BB0CE400FF5BC5 /* InputTextField.m */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +271,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A70A617B19BB0CE400FF5BC5 /* InputTextField.m in Sources */,
+				A782541B19BAFDF0005212A9 /* LoginViewController.m in Sources */,
 				9F8E2F1519BAF9E900737F83 /* ViewController.m in Sources */,
 				9F8E2F0C19BAF9E900737F83 /* AppDelegate.m in Sources */,
 				9F8E2F0819BAF9E900737F83 /* main.m in Sources */,
@@ -470,6 +490,7 @@
 				9F8E2F2F19BAF9E900737F83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9F8E2F3019BAF9E900737F83 /* Build configuration list for PBXNativeTarget "TelegraphicTests" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +499,7 @@
 				9F8E2F3219BAF9E900737F83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
