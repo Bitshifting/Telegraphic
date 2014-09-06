@@ -1,22 +1,22 @@
 //
-//  FriendsTableViewController.m
+//  EveryoneTableTableViewController.m
 //  Telegraphic
 //
 //  Created by Kenneth Siu on 9/6/14.
 //  Copyright (c) 2014 Base Twelve. All rights reserved.
 //
 
-#import "FriendsTableViewController.h"
+#import "EveryoneTableTableViewController.h"
 #import "APIFunctions.h"
 #import "SecretKeys.h"
 
-@interface FriendsTableViewController ()
+@interface EveryoneTableTableViewController ()
 
 @end
 
-@implementation FriendsTableViewController
+@implementation EveryoneTableTableViewController
 
-@synthesize queue, arrOfFriends, delegate, accessToken, friendsTimer;
+@synthesize queue, arrOfEveryone, delegate, accessToken, everyoneTimer;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -42,17 +42,15 @@
     [super viewDidLoad];
     
     self.edgesForExtendedLayout = UIRectEdgeAll;
-    self.tableView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
-
+    self.tableView.contentInset = UIEdgeInsetsMake(20.0f + self.navigationController.navigationBar.frame.size.height, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
+    
     
     queue = [[NSOperationQueue alloc] init];
     
-    friendsTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(checkFriends:) userInfo:nil repeats:YES];
-    
-    
+    everyoneTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(checkEveryone:) userInfo:nil repeats:YES];
     
     // Uncomment the following line to preserve selection between presentations.
-    //self.clearsSelectionOnViewWillAppear = NO;
+    // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -61,10 +59,10 @@
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    friendsTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(checkFriends:) userInfo:self repeats:YES];
+    everyoneTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(checkEveryone:) userInfo:self repeats:YES];
 }
 
--(IBAction)checkFriends:(NSTimer*)timer {
+-(IBAction)checkEveryone:(NSTimer*)timer {
     NSURLRequest *req = [APIFunctions getUserList:[SecretKeys getURL] withAccessToken:accessToken];
     
     [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
@@ -88,7 +86,7 @@
                 [users addObject:[dictUsers objectForKey:@"username"]];
             }
             
-            arrOfFriends = users;
+            arrOfEveryone = users;
             
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [self.tableView reloadData];
@@ -99,19 +97,18 @@
     }];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    
-    [friendsTimer invalidate];
-    
-    [delegate sendImage:cell.textLabel.text];
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    [everyoneTimer invalidate];
+    [delegate sendImageEveryone:cell.textLabel.text];
 }
 
 #pragma mark - Table view data source
@@ -125,14 +122,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [arrOfFriends count];
+    return [arrOfEveryone count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    NSString *identifier = @"friendCell";
+    NSString *identifier = @"everyoneCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
     if (cell == nil) {
@@ -140,12 +136,10 @@
     }
     
     // Configure the cell...
-    cell.textLabel.text = [arrOfFriends objectAtIndex:indexPath.row];
+    cell.textLabel.text = [arrOfEveryone objectAtIndex:indexPath.row];
     
     return cell;
 }
-
-
 
 
 /*

@@ -9,22 +9,28 @@
 #import <UIKit/UIKit.h>
 #import "FriendsTableViewController.h"
 #import "DrawViewController.h"
-#import "ImagesTableViewController.h"
+#import "EveryoneTableTableViewController.h"
 
-@interface TabViewController : UITabBarController <FriendsTableDelegate, DrawViewDelegate, ImagesTableDelegate>
+@interface TabViewController : UITabBarController <FriendsTableDelegate, EveryoneTableDelegate, DrawViewDelegate>
 
 @property NSMutableArray *tabBarItemArray;
 @property NSMutableArray *viewContArray;
 
-@property (weak) UINavigationController *navCont;
 @property NSString* accessToken;
+
+@property FriendsTableViewController *friendVC;
+@property EveryoneTableTableViewController *everyVC;
 
 @property NSOperationQueue *queue;
 
-@property FriendsTableViewController *friendVC;
-@property ImagesTableViewController *imageVC;
 
+@property BOOL isEditable;
+@property BOOL isCreate;
 
-- (id) initWithNavigationController:(UINavigationController*)nNavCont withAccessTokens:(NSString*)apiToken;
+@property NSString *UUID;
+
+@property UIImage *image;
+
+- (id) initWithImage:(UIImage*)nImage withAccessToken:(NSString*)apiToken isEditable:(BOOL)nIsEditable isCreate:(BOOL)nIsCreate withUUID:(NSString*)nUUID;
 
 @end

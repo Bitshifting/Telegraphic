@@ -25,6 +25,7 @@
 		9F8E2F2019BAF9E900737F83 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8E2EFF19BAF9E800737F83 /* UIKit.framework */; };
 		9F8E2F2819BAF9E900737F83 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F8E2F2619BAF9E900737F83 /* InfoPlist.strings */; };
 		9F8E2F2A19BAF9E900737F83 /* TelegraphicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E2F2919BAF9E900737F83 /* TelegraphicTests.m */; };
+		9F9A08BF19BBA3610076DE9B /* EveryoneTableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F9A08BE19BBA3610076DE9B /* EveryoneTableTableViewController.m */; };
 		9FE1D04519BB29D800CE27EA /* DrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D04219BB29D800CE27EA /* DrawView.m */; };
 		9FE1D04619BB29D800CE27EA /* DrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D04419BB29D800CE27EA /* DrawViewController.m */; };
 		9FE1D04919BB29DF00CE27EA /* UIOutlineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D04819BB29DF00CE27EA /* UIOutlineLabel.m */; };
@@ -72,6 +73,8 @@
 		9F8E2F2519BAF9E900737F83 /* TelegraphicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TelegraphicTests-Info.plist"; sourceTree = "<group>"; };
 		9F8E2F2719BAF9E900737F83 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F8E2F2919BAF9E900737F83 /* TelegraphicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TelegraphicTests.m; sourceTree = "<group>"; };
+		9F9A08BD19BBA3610076DE9B /* EveryoneTableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EveryoneTableTableViewController.h; sourceTree = "<group>"; };
+		9F9A08BE19BBA3610076DE9B /* EveryoneTableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EveryoneTableTableViewController.m; sourceTree = "<group>"; };
 		9FE1D04119BB29D800CE27EA /* DrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawView.h; sourceTree = "<group>"; };
 		9FE1D04219BB29D800CE27EA /* DrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawView.m; sourceTree = "<group>"; };
 		9FE1D04319BB29D800CE27EA /* DrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawViewController.h; sourceTree = "<group>"; };
@@ -178,6 +181,8 @@
 				9FE1D05119BB342500CE27EA /* NavigationViewController.m */,
 				9F01667C19BB4AFE002405BA /* TabViewController.h */,
 				9F01667D19BB4AFE002405BA /* TabViewController.m */,
+				9F9A08BD19BBA3610076DE9B /* EveryoneTableTableViewController.h */,
+				9F9A08BE19BBA3610076DE9B /* EveryoneTableTableViewController.m */,
 			);
 			path = Telegraphic;
 			sourceTree = "<group>";
@@ -336,6 +341,7 @@
 				9F8E2F0819BAF9E900737F83 /* main.m in Sources */,
 				9F01667E19BB4AFE002405BA /* TabViewController.m in Sources */,
 				9F7BAC3D19BB48FB00318200 /* ImagesTableViewController.m in Sources */,
+				9F9A08BF19BBA3610076DE9B /* EveryoneTableTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

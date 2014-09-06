@@ -11,7 +11,7 @@
 #import "APIFunctions.h"
 #import "SecretKeys.h"
 #import "DrawViewController.h"
-#import "TabViewController.h"
+#import "ImagesTableViewController.h"
 
 @interface LoginViewController ()
 
@@ -82,9 +82,9 @@
 
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 
-                TabViewController *tabVC =[[TabViewController alloc] initWithNavigationController:self.navigationController withAccessTokens:accessToken];
+                ImagesTableViewController *imagesVC =[[ImagesTableViewController alloc] initWithAccessToken:accessToken withNavigationController:self.navigationController];
                 
-                [self.navigationController setViewControllers:@[tabVC]];
+                [self.navigationController setViewControllers:@[imagesVC]];
             }];
 
         }

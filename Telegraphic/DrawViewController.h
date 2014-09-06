@@ -12,7 +12,11 @@
 
 @protocol DrawViewDelegate <NSObject>
 
--(void) drawViewEnded:(UIImage *)nImage withText:(NSString *)nText isEditable:(BOOL)nIsEditable;
+-(void) newImageCreate:(UIImage *)nImage withNextUser:(NSString *)nNextUser;
+
+-(void) editImage:(UIImage *)nImage withNextUser:(NSString *)nNextUser;
+
+-(void) finishedImage:(UIImage*)nImage;
 
 @end
 
@@ -31,6 +35,7 @@
 
 //editable
 @property BOOL isEditable;
+@property BOOL isNew;
 
 @property UIImage *imageNow;
 
@@ -48,8 +53,6 @@
 @property (weak) UINavigationController *navCont;
 @property NSNumber *timer;
 
-- (id)initWithNavViewController:(UINavigationController*)nNavCont withTime:(NSNumber*)nTime withText:(NSString*)nText;
-
-- (id)initWithNavViewController:(UINavigationController*)nNavCont withTime:(NSNumber*)nTime withText:(NSString *)nText withImage:(UIImage*)image isEditable:(BOOL)nIsEditable;
+- (id)initWithNavViewController:(UINavigationController*)nNavCont withTime:(NSNumber*)nTime withText:(NSString *)nText withImage:(UIImage*)image isEditable:(BOOL)nIsEditable isCreate:(BOOL)isCreate;
 
 @end

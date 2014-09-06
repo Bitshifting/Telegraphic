@@ -22,6 +22,8 @@
 
 @property NSString *accessToken;
 
+@property NSTimer *friendsTimer;
+
 -(id)initWithAccessToken:(NSString*)apiToken;
 
 @end

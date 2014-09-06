@@ -31,7 +31,7 @@
 
 +(NSMutableURLRequest*) updateImage:(NSString*)url withUUID:(NSString*)uuid withAccessToken:(NSString*)apiToken withNextUser:(NSString*)nextUser withImage:(NSString*)image {
     
-    return [self queryWithBody:[NSString stringWithFormat:@"%@/image/update/%@", url, uuid] withDictionary:@{@"accessToken": apiToken,  @"nextUser" : nextUser, @"image" : image}];
+    return [self queryWithBody:[NSString stringWithFormat:@"%@/image/update", url] withDictionary:@{@"accessToken": apiToken,  @"nextUser" : nextUser, @"image" : image, @"uuid" : uuid}];
 }
 
 +(NSMutableURLRequest*) queryImage:(NSString*)url withAccessToken:(NSString*)apiToken {
@@ -41,6 +41,14 @@
 
 +(NSMutableURLRequest*) seenImage:(NSString*)url withAccessToken:(NSString*)apiToken withUUID:(NSString*)uuid {
     return [self queryWithBody:[NSString stringWithFormat:@"%@/image/seen", url] withDictionary:@{@"accessToken": apiToken, @"imageUUID" : uuid}];
+}
+
++(NSMutableURLRequest*) getFriends:(NSString*)url withAccessToken:(NSString*)apiToken {
+    return [self queryWithBody:[NSString stringWithFormat:@"%@/friends", url] withDictionary:@{@"accessToken" : apiToken}];
+}
+
++(NSMutableURLRequest*) addFriend:(NSString*)url withUsername:(NSString*)username withAccessToken:(NSString*)apiToken {
+    return [self queryWithBody:[NSString stringWithFormat:@"%@/friends/add/%@", url, username] withDictionary:@{@"accessToken" : apiToken}];
 }
 
 

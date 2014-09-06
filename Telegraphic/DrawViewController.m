@@ -32,23 +32,9 @@
     int count;
 }
 
-@synthesize drawing, blueButton, redButton, greenButton, blackButton, eraseButton, brushScaleLabel, navCont, timer, timerLabel, delegate, text, isEditable, imageNow;
+@synthesize drawing, blueButton, redButton, greenButton, blackButton, eraseButton, brushScaleLabel, navCont, timer, timerLabel, delegate, text, isEditable, imageNow, isNew;
 
-- (id)initWithNavViewController:(UINavigationController*)nNavCont withTime:(NSNumber*)nTime withText:(NSString *)nText {
-    
-    self = [super init];
-    
-    if(self) {
-        navCont = nNavCont;
-        timer = nTime;
-        text = nText;
-        isEditable = YES;
-    }
-    
-    return self;
-}
-
-- (id)initWithNavViewController:(UINavigationController*)nNavCont withTime:(NSNumber*)nTime withText:(NSString *)nText withImage:(UIImage*)image isEditable:(BOOL)nIsEditable {
+- (id)initWithNavViewController:(UINavigationController*)nNavCont withTime:(NSNumber*)nTime withText:(NSString *)nText withImage:(UIImage*)image isEditable:(BOOL)nIsEditable isCreate:(BOOL)isCreate{
     
     self = [super init];
     
@@ -58,6 +44,7 @@
         text = nText;
         imageNow = image;
         isEditable = nIsEditable;
+        isNew = isCreate;
     }
     
     return self;
@@ -178,7 +165,13 @@
     if(counter == 0) {
         [sender invalidate];
         
-        [delegate drawViewEnded:drawing.tempDrawImage.image withText:text isEditable:isEditable];
+        if(isNew && isEditable) {
+            [delegate newImageCreate:drawing.tempDrawImage.image withNextUser:text];
+        } else if(isEditable) {
+            [delegate editImage:drawing.tempDrawImage.image withNextUser:text];
+        } else {
+            [delegate finishedImage:drawing.tempDrawImage.image];
+        }
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
             [self dismissViewControllerAnimated:YES completion:nil];

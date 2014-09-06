@@ -9,6 +9,7 @@
 #import "ImagesTableViewController.h"
 #import "APIFunctions.h"
 #import "SecretKeys.h"
+#import "TabViewController.h"
 
 @interface ImagesTableViewController ()
 
@@ -16,7 +17,7 @@
 
 @implementation ImagesTableViewController
 
-@synthesize queue, arrOfImages, delegate, accessToken, arrOfUUID, arrOfHops, arrOfBase64;
+@synthesize queue, arrOfPrevUsers, accessToken, arrOfUUID, arrOfHops, arrOfBase64, navCont, imageTimer;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -27,19 +28,32 @@
     return self;
 }
 
--(id) initWithAccessToken:(NSString*)apiToken {
+-(id) initWithAccessToken:(NSString*)apiToken withNavigationController:(UINavigationController*)nNavCont {
     self = [super init];
     
     if(self) {
         accessToken = apiToken;
+        navCont = nNavCont;
+        
+        [navCont setNavigationBarHidden:NO animated:YES];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addImage:)];
+        
     }
     
     return self;
 }
 
+-(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    imageTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(checkImages:) userInfo:self repeats:YES];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.title = @"Images";
     
     self.edgesForExtendedLayout = UIRectEdgeAll;
     self.tableView.contentInset = UIEdgeInsetsMake(20.0f + self.tabBarController.navigationController.navigationBar.frame.size.height, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
@@ -47,7 +61,7 @@
     
     queue = [[NSOperationQueue  alloc] init];
     
-    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(checkImages:) userInfo:self repeats:YES];
+    imageTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(checkImages:) userInfo:self repeats:YES];
      
     // Uncomment the following line to preserve selection between presentations.
     //self.clearsSelectionOnViewWillAppear = NO;
@@ -89,7 +103,7 @@
                 [base64 addObject:[dictImages objectForKey:@"image"]];
             }
             
-            arrOfImages = images;
+            arrOfPrevUsers = images;
             arrOfUUID = uuid;
             arrOfHops = hops;
             arrOfBase64 = base64;
@@ -104,9 +118,17 @@
 }
 
 - (void)didReceiveMemoryWarning
+
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//TODO: ADD IMAGE BY PUSHING THE TAB
+-(IBAction)addImage:(id)sender {
+    [imageTimer invalidate];
+    
+    [navCont pushViewController:[[TabViewController alloc] initWithImage:nil withAccessToken:accessToken isEditable:YES isCreate:YES withUUID:nil] animated:YES];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -119,7 +141,14 @@
         isLast = YES;
     }
     
-    [delegate viewImage:[arrOfBase64 objectAtIndex:indexPath.row] isLast:isLast withUUID:[arrOfUUID objectAtIndex:indexPath.row]];
+    //convert string to image
+    NSString *image = [arrOfBase64 objectAtIndex:indexPath.row];
+    
+    NSData *data = [[NSData alloc]initWithBase64EncodedString:image options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    
+    [imageTimer invalidate];
+    
+    [navCont pushViewController:[[TabViewController alloc] initWithImage:[UIImage imageWithData:data] withAccessToken:accessToken isEditable:!isLast isCreate:NO withUUID:[arrOfUUID objectAtIndex:indexPath.row]] animated:YES];
 }
 
 #pragma mark - Table view data source
@@ -133,7 +162,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [arrOfImages count];
+    return [arrOfPrevUsers count];
 }
 
 
@@ -154,7 +183,7 @@
     }
     
     // set text
-    cell.textLabel.text = [arrOfImages objectAtIndex:indexPath.row];
+    cell.textLabel.text = [arrOfPrevUsers objectAtIndex:indexPath.row];
     
     return cell;
 }

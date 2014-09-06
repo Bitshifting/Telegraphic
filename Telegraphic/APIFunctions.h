@@ -16,4 +16,5 @@
 +(NSMutableURLRequest*) createImage:(NSString*)url withAccessToken:(NSString*)apiToken withEditTime:(NSNumber*)editTime withHopsLeft:(NSNumber*)hopsLeft withNextUser:(NSString*)nextUser withImage:(NSString*)image;
 +(NSMutableURLRequest*) updateImage:(NSString*)url withUUID:(NSString*)uuid withAccessToken:(NSString*)apiToken withNextUser:(NSString*)nextUser withImage:(NSString*)image;
 +(NSMutableURLRequest*) queryImage:(NSString*)url withAccessToken:(NSString*)apiToken;
++(NSMutableURLRequest*) seenImage:(NSString*)url withAccessToken:(NSString*)apiToken withUUID:(NSString*)uuid;
 @end

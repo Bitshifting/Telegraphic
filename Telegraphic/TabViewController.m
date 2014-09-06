@@ -19,7 +19,7 @@
 
 @implementation TabViewController
 
-@synthesize tabBarItemArray, viewContArray, navCont, accessToken, queue, friendVC, imageVC;
+@synthesize tabBarItemArray, viewContArray, accessToken, friendVC, isEditable, isCreate, everyVC, queue, image, UUID;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -30,52 +30,60 @@
     return self;
 }
 
-- (id) initWithNavigationController:(UINavigationController*)nNavCont withAccessTokens:(NSString*)apiToken {
+- (id) initWithImage:(UIImage*)nImage withAccessToken:(NSString*)apiToken isEditable:(BOOL)nIsEditable isCreate:(BOOL)nIsCreate withUUID:(NSString*)nUUID {
     self = [super init];
     
     if(self) {
+        UUID = nUUID;
+        
+        image = nImage;
+        
         queue = [[NSOperationQueue alloc] init];
+        
+        isEditable = nIsEditable;
+        isCreate = nIsCreate;
+        
         accessToken = apiToken;
-        navCont = nNavCont;
         
-        //title
-        self.title = @"Friends";
+        if(isEditable || isCreate) {
+            // Do any additional setup after loading the view.
+            
+            tabBarItemArray = [[NSMutableArray alloc] init];
+            viewContArray = [[NSMutableArray alloc] init];
+            
+            //initialize the two view controllers
+            friendVC = [[FriendsTableViewController alloc] initWithAccessToken:accessToken];
+            friendVC.delegate = self;
+            
+            friendVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:0 ];
+            friendVC.title = @"Friends";
+            
+            //initialize everyone
+            everyVC = [[EveryoneTableTableViewController alloc] initWithAccessToken:accessToken];
+            everyVC.delegate = self;
+            
+            everyVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:1];
+            everyVC.title = @"Everyone";
+            
+            [tabBarItemArray addObject:friendVC.tabBarItem];
+            [viewContArray addObject:friendVC];
+            [tabBarItemArray addObject:everyVC.tabBarItem];
+            [viewContArray addObject:everyVC];
+            
+            //now add the everyone
+            self.tabBarItemArray = tabBarItemArray;
+            [self setViewControllers:@[friendVC, everyVC]];
+        } else {
+            [self openDrawing:nil];
+        }
         
-        // Do any additional setup after loading the view.
-        
-        tabBarItemArray = [[NSMutableArray alloc] init];
-        viewContArray = [[NSMutableArray alloc] init];
-        
-        //initialize the two view controllers
-        friendVC = [[FriendsTableViewController alloc] initWithAccessToken:accessToken];
-        friendVC.delegate = self;
-        
-        imageVC = [[ImagesTableViewController alloc] initWithAccessToken:accessToken];
-        imageVC.delegate = self;
-        
-        friendVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:0 ];
-        friendVC.title = @"Friends";
-        
-        imageVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemDownloads tag:1];
-        imageVC.title = @"Images";
-        
-        [tabBarItemArray addObject:friendVC.tabBarItem];
-        [viewContArray addObject:friendVC];
-        
-        [tabBarItemArray addObject:imageVC.tabBarItem];
-        [viewContArray addObject:imageVC];
-        
-        self.tabBarItemArray = tabBarItemArray;
-        [self setViewControllers:@[friendVC, imageVC]];
-        
-        [navCont setNavigationBarHidden:NO animated:YES];
         
     }
     
     return self;
-    
-    
 }
+
+
 
 - (void)viewDidLoad
 {
@@ -95,41 +103,31 @@
         self.title = @"Friends";
     } else if([item tag] == 1) {
         //show the bar
-        self.title = @"Images";
+        self.title = @"Everyone";
     }
     
 }
 
-#pragma mark Send Image
--(void) sendImage:(NSString *)text {
-    
-    DrawViewController *drawVC = [[DrawViewController alloc] initWithNavViewController:navCont withTime:[NSNumber numberWithInt:TIME_TO_EDIT] withText:text];
-    drawVC.delegate = self;
-    
-    [navCont presentViewController:drawVC animated:YES completion:nil];
+-(void) sendImage:(NSString*)text {
+    [self openDrawing:text];
 }
 
--(void) viewImage:(NSString *)text isLast:(BOOL)isLast withUUID:(NSString *)nUUID{
-    
-    NSData *data = [[NSData alloc]initWithBase64EncodedString:text options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    
-    DrawViewController *drawVC = [[DrawViewController alloc] initWithNavViewController:navCont withTime:[NSNumber numberWithInt:TIME_TO_EDIT] withText:@"boi" withImage:[UIImage imageWithData:data] isEditable:!isLast];
-    drawVC.delegate = self;
-    
-    [navCont presentViewController:drawVC animated:YES completion:nil];
+-(void) sendImageEveryone:(NSString *)text {
+    [self openDrawing:text];
 }
 
--(void) drawViewEnded:(UIImage *)nImage withText:(NSString *)nText isEditable:(BOOL)nIsEditable {
+- (void) openDrawing:(NSString*)text {
+    DrawViewController *drawVC = [[DrawViewController alloc] initWithNavViewController:self.navigationController withTime:[NSNumber numberWithInt:TIME_TO_EDIT] withText:text withImage:image isEditable:isEditable isCreate:isCreate];
     
-    NSData *imageData = UIImageJPEGRepresentation(nImage, 1.0);
+    drawVC.delegate = self;
     
-    NSString *encodedString = [imageData base64EncodedStringWithOptions:0];
-    
-    if(encodedString == nil) {
-        return;
-    }
-    
-    NSMutableURLRequest *req = [APIFunctions createImage:[SecretKeys getURL] withAccessToken:accessToken withEditTime:[NSNumber numberWithInt:TIME_TO_EDIT] withHopsLeft:[NSNumber numberWithInt:MAX_HOPS] withNextUser:nText withImage:encodedString];
+    [self.navigationController presentViewController:drawVC animated:YES completion:nil];
+}
+
+#pragma mark DrawView Delegates
+-(void) finishedImage:(UIImage *)nImage{
+    //clean up here
+    NSMutableURLRequest *req = [APIFunctions seenImage:[SecretKeys getURL] withAccessToken:accessToken withUUID:UUID];
     
     [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
@@ -143,12 +141,83 @@
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
         
         if([[dict objectForKey:@"success"] boolValue]) {
-            NSLog(@"Image Success!");
+            NSLog(@"Image cleaned!");
         }
         
     }];
     
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+
+-(void) editImage:(UIImage *)nImage withNextUser:(NSString *)nNextUser {
+    //continue the chain
+    
+    NSData *imageData = UIImageJPEGRepresentation(nImage, 1.0);
+    
+    NSString *encodedString = [imageData base64EncodedStringWithOptions:0];
+    
+    if(encodedString == nil) {
+        return;
+    }
+    
+    NSMutableURLRequest *req = [APIFunctions updateImage:[SecretKeys getURL] withUUID:UUID withAccessToken:accessToken withNextUser:nNextUser withImage:encodedString];
+    
+    [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+        //if there is an error, return
+        if(error) {
+            return;
+        }
+        
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        
+        if([[dict objectForKey:@"success"] boolValue]) {
+            NSLog(@"Image Successfully updated!");
+        }
+        
+    }];
+    
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+-(void) newImageCreate:(UIImage *)nImage withNextUser:(NSString *)nNextUser {
+    
+    NSData *imageData = UIImageJPEGRepresentation(nImage, 1.0);
+    
+    NSString *encodedString = [imageData base64EncodedStringWithOptions:0];
+    
+    if(encodedString == nil) {
+        return;
+    }
+    
+    NSMutableURLRequest *req = [APIFunctions createImage:[SecretKeys getURL] withAccessToken:accessToken withEditTime:[NSNumber numberWithInt:TIME_TO_EDIT] withHopsLeft:[NSNumber numberWithInt:MAX_HOPS] withNextUser:nNextUser withImage:encodedString];
+    
+    [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+        //if there is an error, return
+        if(error) {
+            return;
+        }
+        
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        
+        if([[dict objectForKey:@"success"] boolValue]) {
+            NSLog(@"Image Successfully created!");
+        }
+        
+    }];
+    
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+
 
 /*
 #pragma mark - Navigation
