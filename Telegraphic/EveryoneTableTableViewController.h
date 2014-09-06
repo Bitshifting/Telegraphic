@@ -14,7 +14,7 @@
 
 @end
 
-@interface EveryoneTableTableViewController : UITableViewController
+@interface EveryoneTableTableViewController : UITableViewController <UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
 @property NSOperationQueue *queue;
 @property NSMutableArray *arrOfEveryone;
@@ -23,6 +23,7 @@
 @property NSTimer *everyoneTimer;
 
 @property NSString *accessToken;
+@property NSString *temporaryName;
 
 -(id)initWithAccessToken:(NSString*)apiToken;
 

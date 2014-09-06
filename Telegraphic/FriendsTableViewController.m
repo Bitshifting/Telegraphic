@@ -87,7 +87,7 @@
             NSMutableArray *users = [[NSMutableArray alloc] init];
             
             for(NSDictionary *dictUsers in arrOfUsers) {
-                [users addObject:[dictUsers objectForKey:@"username"]];
+                [users addObject:[dictUsers objectForKey:@"friend"]];
             }
             
             arrOfFriends = users;

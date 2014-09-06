@@ -61,7 +61,7 @@
     self.title = @"Images";
     
     self.edgesForExtendedLayout = UIRectEdgeAll;
-    self.tableView.contentInset = UIEdgeInsetsMake(20.0f + self.tabBarController.navigationController.navigationBar.frame.size.height, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
+    self.tableView.contentInset = UIEdgeInsetsMake(self.tabBarController.navigationController.navigationBar.frame.size.height, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
 
     
     queue = [[NSOperationQueue  alloc] init];
@@ -109,9 +109,6 @@
         
     }];
     
-    [imageTimer invalidate];
-    
-    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(IBAction)checkImages:(NSTimer*)timer {

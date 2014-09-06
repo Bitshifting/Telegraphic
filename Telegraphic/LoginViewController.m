@@ -58,6 +58,23 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)unableToLog {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to Log In" message:@"" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    
+    [alert show];
+}
+
+-(void)unableToRegister {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to Register" message:@"" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+    
+    [alert show];
+    
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
+}
+
 - (IBAction)loginButton:(UIButton *)sender {
     
     NSMutableURLRequest *req = [APIFunctions loginUser:[SecretKeys getURL] withUsername:usernameField.text withPassHash:[self hashString:passwordField.text withSalt:usernameField.text]];
@@ -68,6 +85,7 @@
         
         //if there is an error, return
         if(error) {
+            [self unableToLog];
             return;
         }
         
@@ -87,6 +105,8 @@
                 [self.navigationController setViewControllers:@[imagesVC]];
             }];
 
+        } else {
+            [self unableToLog];
         }
         
     }];
@@ -101,6 +121,7 @@
         
         //if there is an error, return
         if(error) {
+            [self unableToRegister];
             return;
         }
         
@@ -111,6 +132,8 @@
             
             //now try to log in
             [self loginButton:sender];
+        } else {
+            [self unableToRegister];
         }
         
     }];
@@ -181,12 +204,10 @@
 
 #pragma mark crypto
 -(NSString *) hashString :(NSString *) data withSalt: (NSString *) salt {
-    
-    
-    const char *cKey  = [salt cStringUsingEncoding:NSUTF8StringEncoding];
+
     const char *cData = [data cStringUsingEncoding:NSUTF8StringEncoding];
     unsigned char cHMAC[CC_SHA256_DIGEST_LENGTH];
-    CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+    CCHmac(kCCHmacAlgSHA256, nil, 0, cData, strlen(cData), cHMAC);
     
     NSString *hash;
     
