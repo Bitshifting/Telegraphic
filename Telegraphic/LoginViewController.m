@@ -150,15 +150,30 @@
 
 - (void)keyboardDidShow:(NSNotification *)notification
 {
-    //Assign new frame to your view
-//    [self.view setFrame:CGRectMake(0,-20,320,460)]; //here taken -20 for example i.e. your view will be scrolled to -20. change its value according to your requirement.
-    self.view.center = CGPointMake(self.originalCenter.x, 130.0f);
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.25];
+    self.view.center = CGPointMake(self.originalCenter.x, [[UIScreen mainScreen] bounds].size.height / 2.3);
+    [UIView commitAnimations];
 }
 
 -(void)keyboardWillHide:(NSNotification *)notification
 {
-//    [self.view setFrame:CGRectMake(0,0,320,460)];
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.25];
     self.view.center = self.originalCenter;
+    [UIView commitAnimations];
+}
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    UITouch *touch = [[event allTouches] anyObject];
+    if ([usernameField isFirstResponder] && [touch view] != usernameField) {
+        [usernameField resignFirstResponder];
+    }
+    else if ([passwordField isFirstResponder] && [touch view] != passwordField) {
+        [passwordField resignFirstResponder];
+    }
+    [super touchesBegan:touches withEvent:event];
 }
 
 #pragma mark crypto
