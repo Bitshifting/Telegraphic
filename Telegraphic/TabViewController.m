@@ -53,11 +53,11 @@
         imageVC = [[ImagesTableViewController alloc] initWithAccessToken:accessToken];
         imageVC.delegate = self;
         
-        friendVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Friends" image:nil selectedImage:nil];
-        [friendVC.tabBarItem setTag:0];
+        friendVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:0 ];
+        friendVC.title = @"Friends";
         
-        imageVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Images" image:nil selectedImage:nil];
-        [imageVC.tabBarItem setTag:1];
+        imageVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemDownloads tag:1];
+        imageVC.title = @"Images";
         
         [tabBarItemArray addObject:friendVC.tabBarItem];
         [viewContArray addObject:friendVC];
