@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  UIOutlineLabel.h
 //  Telegraphic
 //
 //  Created by Kenneth Siu on 9/6/14.
@@ -8,5 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface UIOutlineLabel : UILabel
+
 @end

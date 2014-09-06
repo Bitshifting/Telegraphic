@@ -22,6 +22,9 @@
 		9F8E2F2019BAF9E900737F83 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F8E2EFF19BAF9E800737F83 /* UIKit.framework */; };
 		9F8E2F2819BAF9E900737F83 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9F8E2F2619BAF9E900737F83 /* InfoPlist.strings */; };
 		9F8E2F2A19BAF9E900737F83 /* TelegraphicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F8E2F2919BAF9E900737F83 /* TelegraphicTests.m */; };
+		9FB5960F19BAFC6F00BFAB0F /* DrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FB5960E19BAFC6F00BFAB0F /* DrawViewController.m */; };
+		9FCACBEA19BB074F00D692F4 /* DrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCACBE919BB074F00D692F4 /* DrawView.m */; };
+		9FCACBED19BB202200D692F4 /* UIOutlineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FCACBEC19BB202200D692F4 /* UIOutlineLabel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +58,12 @@
 		9F8E2F2519BAF9E900737F83 /* TelegraphicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TelegraphicTests-Info.plist"; sourceTree = "<group>"; };
 		9F8E2F2719BAF9E900737F83 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9F8E2F2919BAF9E900737F83 /* TelegraphicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TelegraphicTests.m; sourceTree = "<group>"; };
+		9FB5960D19BAFC6F00BFAB0F /* DrawViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawViewController.h; sourceTree = "<group>"; };
+		9FB5960E19BAFC6F00BFAB0F /* DrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawViewController.m; sourceTree = "<group>"; };
+		9FCACBE819BB074F00D692F4 /* DrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawView.h; sourceTree = "<group>"; };
+		9FCACBE919BB074F00D692F4 /* DrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawView.m; sourceTree = "<group>"; };
+		9FCACBEB19BB202200D692F4 /* UIOutlineLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIOutlineLabel.h; sourceTree = "<group>"; };
+		9FCACBEC19BB202200D692F4 /* UIOutlineLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIOutlineLabel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +97,7 @@
 				9F8E2F2319BAF9E900737F83 /* TelegraphicTests */,
 				9F8E2EFA19BAF9E800737F83 /* Frameworks */,
 				9F8E2EF919BAF9E800737F83 /* Products */,
+				9F8E2F0219BAF9E900737F83 /* Supporting Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -121,7 +131,12 @@
 				9F8E2F1319BAF9E900737F83 /* ViewController.h */,
 				9F8E2F1419BAF9E900737F83 /* ViewController.m */,
 				9F8E2F1619BAF9E900737F83 /* Images.xcassets */,
-				9F8E2F0219BAF9E900737F83 /* Supporting Files */,
+				9FB5960D19BAFC6F00BFAB0F /* DrawViewController.h */,
+				9FB5960E19BAFC6F00BFAB0F /* DrawViewController.m */,
+				9FCACBE819BB074F00D692F4 /* DrawView.h */,
+				9FCACBE919BB074F00D692F4 /* DrawView.m */,
+				9FCACBEB19BB202200D692F4 /* UIOutlineLabel.h */,
+				9FCACBEC19BB202200D692F4 /* UIOutlineLabel.m */,
 			);
 			path = Telegraphic;
 			sourceTree = "<group>";
@@ -135,6 +150,7 @@
 				9F8E2F0919BAF9E900737F83 /* Telegraphic-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = Telegraphic;
 			sourceTree = "<group>";
 		};
 		9F8E2F2319BAF9E900737F83 /* TelegraphicTests */ = {
@@ -202,6 +218,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Base Twelve";
 				TargetAttributes = {
+					9F8E2EF719BAF9E800737F83 = {
+						DevelopmentTeam = 9RSGCSU935;
+					};
 					9F8E2F1B19BAF9E900737F83 = {
 						TestTargetID = 9F8E2EF719BAF9E800737F83;
 					};
@@ -253,7 +272,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FB5960F19BAFC6F00BFAB0F /* DrawViewController.m in Sources */,
+				9FCACBEA19BB074F00D692F4 /* DrawView.m in Sources */,
 				9F8E2F1519BAF9E900737F83 /* ViewController.m in Sources */,
+				9FCACBED19BB202200D692F4 /* UIOutlineLabel.m in Sources */,
 				9F8E2F0C19BAF9E900737F83 /* AppDelegate.m in Sources */,
 				9F8E2F0819BAF9E900737F83 /* main.m in Sources */,
 			);
@@ -390,10 +412,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Telegraphic/Telegraphic-Prefix.pch";
 				INFOPLIST_FILE = "Telegraphic/Telegraphic-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -403,10 +428,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Telegraphic/Telegraphic-Prefix.pch";
 				INFOPLIST_FILE = "Telegraphic/Telegraphic-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -470,6 +498,7 @@
 				9F8E2F2F19BAF9E900737F83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9F8E2F3019BAF9E900737F83 /* Build configuration list for PBXNativeTarget "TelegraphicTests" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +507,7 @@
 				9F8E2F3219BAF9E900737F83 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
