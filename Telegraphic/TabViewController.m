@@ -169,7 +169,11 @@
     
     NSMutableURLRequest *req = [APIFunctions updateImage:[SecretKeys getURL] withUUID:UUID withAccessToken:accessToken withNextUser:nNextUser withImage:encodedString];
     
+     NSLog(@"Request body %@", [[NSString alloc] initWithData:[req HTTPBody] encoding:NSUTF8StringEncoding]);
+    
     [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        NSLog(@"WAAAA");
         
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         
