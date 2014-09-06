@@ -6,13 +6,14 @@
 //  Copyright (c) 2014 Base Twelve. All rights reserved.
 //
 
-#import "TabViewController.h"
+#import "NavigationViewController.h"
+#import "LoginViewController.h"
 
-@interface TabViewController ()
+@interface NavigationViewController ()
 
 @end
 
-@implementation TabViewController
+@implementation NavigationViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

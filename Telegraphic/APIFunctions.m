@@ -24,7 +24,7 @@
 }
 
 +(NSMutableURLRequest*) loginUser:(NSString*)url withUsername:(NSString*)username withPassHash:(NSString*)passHash {
-    return [self queryWithBody:[NSString stringWithFormat:@"%@/user/register", url] withDictionary:@{@"username": username, @"passwordHash" : passHash}];
+    return [self queryWithBody:[NSString stringWithFormat:@"%@/user/login", url] withDictionary:@{@"username": username, @"passwordHash" : passHash}];
 }
 
 +(NSMutableURLRequest*) createImage:(NSString*)url withAccessToken:(NSString*)apiToken withEditTime:(NSNumber*)editTime withHopsLeft:(NSNumber*)hopsLeft withNextUser:(NSString*)nextUser withImage:(NSData*)image {

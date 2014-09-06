@@ -27,7 +27,8 @@
 		9FE1D04919BB29DF00CE27EA /* UIOutlineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D04819BB29DF00CE27EA /* UIOutlineLabel.m */; };
 		9FE1D04C19BB2A8600CE27EA /* SecretKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D04B19BB2A8600CE27EA /* SecretKeys.m */; };
 		9FE1D04F19BB2AD300CE27EA /* APIFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D04E19BB2AD300CE27EA /* APIFunctions.m */; };
-		9FE1D05219BB342500CE27EA /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D05119BB342500CE27EA /* TabViewController.m */; };
+		9FE1D05219BB342500CE27EA /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D05119BB342500CE27EA /* NavigationViewController.m */; };
+		9FE1D05819BB41D200CE27EA /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D05719BB41D200CE27EA /* TabViewController.m */; };
 		A70A617B19BB0CE400FF5BC5 /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A70A617A19BB0CE400FF5BC5 /* InputTextField.m */; };
 		A782541B19BAFDF0005212A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A782541919BAFDF0005212A9 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
@@ -73,8 +74,11 @@
 		9FE1D04B19BB2A8600CE27EA /* SecretKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecretKeys.m; sourceTree = "<group>"; };
 		9FE1D04D19BB2AD300CE27EA /* APIFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIFunctions.h; sourceTree = "<group>"; };
 		9FE1D04E19BB2AD300CE27EA /* APIFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIFunctions.m; sourceTree = "<group>"; };
-		9FE1D05019BB342500CE27EA /* TabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController.h; sourceTree = "<group>"; };
-		9FE1D05119BB342500CE27EA /* TabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController.m; sourceTree = "<group>"; };
+		9FE1D05019BB342500CE27EA /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
+		9FE1D05119BB342500CE27EA /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
+		9FE1D05319BB3B6E00CE27EA /* libcommonCrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcommonCrypto.dylib; path = usr/lib/system/libcommonCrypto.dylib; sourceTree = SDKROOT; };
+		9FE1D05619BB41D200CE27EA /* TabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController.h; sourceTree = "<group>"; };
+		9FE1D05719BB41D200CE27EA /* TabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController.m; sourceTree = "<group>"; };
 		A70A617919BB0CE400FF5BC5 /* InputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextField.h; sourceTree = "<group>"; };
 		A70A617A19BB0CE400FF5BC5 /* InputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextField.m; sourceTree = "<group>"; };
 		A782541819BAFDF0005212A9 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -129,6 +133,7 @@
 		9F8E2EFA19BAF9E800737F83 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9FE1D05319BB3B6E00CE27EA /* libcommonCrypto.dylib */,
 				9F8E2EFB19BAF9E800737F83 /* Foundation.framework */,
 				9F8E2EFD19BAF9E800737F83 /* CoreGraphics.framework */,
 				9F8E2EFF19BAF9E800737F83 /* UIKit.framework */,
@@ -159,8 +164,10 @@
 				9FE1D04B19BB2A8600CE27EA /* SecretKeys.m */,
 				9FE1D04D19BB2AD300CE27EA /* APIFunctions.h */,
 				9FE1D04E19BB2AD300CE27EA /* APIFunctions.m */,
-				9FE1D05019BB342500CE27EA /* TabViewController.h */,
-				9FE1D05119BB342500CE27EA /* TabViewController.m */,
+				9FE1D05019BB342500CE27EA /* NavigationViewController.h */,
+				9FE1D05119BB342500CE27EA /* NavigationViewController.m */,
+				9FE1D05619BB41D200CE27EA /* TabViewController.h */,
+				9FE1D05719BB41D200CE27EA /* TabViewController.m */,
 			);
 			path = Telegraphic;
 			sourceTree = "<group>";
@@ -302,7 +309,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9FE1D05219BB342500CE27EA /* TabViewController.m in Sources */,
+				9FE1D05819BB41D200CE27EA /* TabViewController.m in Sources */,
+				9FE1D05219BB342500CE27EA /* NavigationViewController.m in Sources */,
 				A70A617B19BB0CE400FF5BC5 /* InputTextField.m in Sources */,
 				9FE1D04C19BB2A8600CE27EA /* SecretKeys.m in Sources */,
 				9FE1D04919BB29DF00CE27EA /* UIOutlineLabel.m in Sources */,
@@ -450,6 +458,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Telegraphic/Telegraphic-Prefix.pch";
 				INFOPLIST_FILE = "Telegraphic/Telegraphic-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -463,6 +475,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Telegraphic/Telegraphic-Prefix.pch";
 				INFOPLIST_FILE = "Telegraphic/Telegraphic-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

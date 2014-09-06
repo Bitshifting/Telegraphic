@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Base Twelve. All rights reserved.
 //
 
+#import <CommonCrypto/CommonHMAC.h>
 #import "LoginViewController.h"
 #import "APIFunctions.h"
 #import "SecretKeys.h"
@@ -24,7 +25,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        queue = [[NSOperationQueue alloc] init];
+        
     }
     return self;
 }
@@ -33,6 +34,10 @@
 {
     [super viewDidLoad];
     [self registerKeyboardNotifications];
+    
+    queue = [[NSOperationQueue alloc] init];
+    
+    
     usernameField.delegate = self;
     passwordField.delegate = self;
     self.originalCenter = self.view.center;
@@ -49,29 +54,7 @@
 
 - (IBAction)loginButton:(UIButton *)sender {
     
-    NSMutableURLRequest *req = [APIFunctions loginUser:[SecretKeys getURL] withUsername:usernameField.text withPassHash:passwordField.text];
-    
-    [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        
-        //if there is an error, return
-        if(error) {
-            return;
-        }
-        
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-        
-        if(dict && [[dict objectForKey:@"success"] boolValue] && [[dict objectForKey:@"message"] isEqualToString:@"logged in"]) {
-            
-            NSLog(@"Logged in successfully!");
-        }
-        
-    }];
-}
-
-- (IBAction)creatAccountButton:(UIButton *)sender {
-    NSMutableURLRequest *req = [APIFunctions registerUser:[SecretKeys getURL] withUsername:usernameField.text withPassHash:passwordField.text withPhoneNumb:usernameField.text];
+    NSMutableURLRequest *req = [APIFunctions loginUser:[SecretKeys getURL] withUsername:usernameField.text withPassHash:[self hashString:passwordField.text withSalt:usernameField.text]];
     
     [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
@@ -85,7 +68,32 @@
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
         
         if(dict && [[dict objectForKey:@"success"] boolValue]) {
-            NSLog(@"Successfully registered teh account");
+            //now get access token and send to the tab view controller
+            NSString *accessToken = [dict objectForKey:@"accessToken"];
+            
+            
+            
+        }
+        
+    }];
+}
+
+- (IBAction)creatAccountButton:(UIButton *)sender {
+    NSMutableURLRequest *req = [APIFunctions registerUser:[SecretKeys getURL] withUsername:usernameField.text withPassHash:[self hashString:passwordField.text withSalt:usernameField.text] withPhoneNumb:usernameField.text];
+    
+    [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+        //if there is an error, return
+        if(error) {
+            return;
+        }
+        
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        
+        if(dict && [[dict objectForKey:@"success"] boolValue]) {
+            NSLog(@"Successfully registered the account");
         }
         
     }];
@@ -137,6 +145,26 @@
 {
 //    [self.view setFrame:CGRectMake(0,0,320,460)];
     self.view.center = self.originalCenter;
+}
+
+#pragma mark crypto
+-(NSString *) hashString :(NSString *) data withSalt: (NSString *) salt {
+    
+    
+    const char *cKey  = [salt cStringUsingEncoding:NSUTF8StringEncoding];
+    const char *cData = [data cStringUsingEncoding:NSUTF8StringEncoding];
+    unsigned char cHMAC[CC_SHA256_DIGEST_LENGTH];
+    CCHmac(kCCHmacAlgSHA256, cKey, strlen(cKey), cData, strlen(cData), cHMAC);
+    
+    NSString *hash;
+    
+    NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA256_DIGEST_LENGTH * 2];
+    
+    for(int i = 0; i < CC_SHA256_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x", cHMAC[i]];
+    hash = output;
+    return hash;
+    
 }
 
 @end

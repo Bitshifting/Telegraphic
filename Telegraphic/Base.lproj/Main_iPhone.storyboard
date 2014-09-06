@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Tab View Controller-->
+        <!--Navigation View Controller-->
         <scene sceneID="TaU-ZS-5QY">
             <objects>
-                <navigationController definesPresentationContext="YES" id="fna-gN-liV" customClass="TabViewController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="fna-gN-liV" customClass="NavigationViewController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BR1-xi-V5h">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -71,7 +71,6 @@
                                 </state>
                                 <connections>
                                     <action selector="creatAccountButton:" destination="t5F-GR-SDk" eventType="touchUpInside" id="BMc-nX-bOf"/>
-                                    <action selector="loginButton:" destination="t5F-GR-SDk" eventType="touchUpInside" id="dep-zn-UAc"/>
                                 </connections>
                             </button>
                         </subviews>
