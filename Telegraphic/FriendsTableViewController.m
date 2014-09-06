@@ -67,7 +67,7 @@
 }
 
 -(IBAction)checkFriends:(NSTimer*)timer {
-    NSURLRequest *req = [APIFunctions getUserList:[SecretKeys getURL] withAccessToken:accessToken];
+    NSURLRequest *req = [APIFunctions getFriends:[SecretKeys getURL] withAccessToken:accessToken];
     
     [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         

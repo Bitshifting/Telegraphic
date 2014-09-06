@@ -175,6 +175,7 @@
         
         //if there is an error, return
         if(error) {
+            NSLog([error description]);
             return;
         }
         

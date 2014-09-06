@@ -46,7 +46,7 @@
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    imageTimer = [NSTimer scheduledTimerWithTimeInterval:10.0f target:self selector:@selector(checkImages:) userInfo:self repeats:YES];
+    imageTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(checkImages:) userInfo:self repeats:YES];
     
     [imageTimer fire];
 }
@@ -63,7 +63,7 @@
     
     queue = [[NSOperationQueue  alloc] init];
     
-    imageTimer = [NSTimer scheduledTimerWithTimeInterval:10.0f target:self selector:@selector(checkImages:) userInfo:self repeats:YES];
+    imageTimer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(checkImages:) userInfo:self repeats:YES];
     
     [imageTimer fire];
     
