@@ -20,4 +20,8 @@
 @property NSMutableArray *arrOfFriends;
 @property id<FriendsTableDelegate> delegate;
 
+@property NSString *accessToken;
+
+-(id)initWithAccessToken:(NSString*)apiToken;
+
 @end

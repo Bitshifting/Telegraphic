@@ -8,6 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol ImagesTableDelegate <NSObject>
+
+-(void) viewImage:(NSString*)text;
+
+@end
+
+
 @interface ImagesTableViewController : UITableViewController
+
+
+@property NSString* accessToken;
+@property NSOperationQueue *queue;
+@property NSMutableArray *arrOfImages;
+@property NSMutableArray *arrOfUUID;
+@property id<ImagesTableDelegate> delegate;
+
+-(id) initWithAccessToken:(NSString*)apiToken;
 
 @end

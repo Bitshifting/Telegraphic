@@ -45,6 +45,37 @@
         [navCont setNavigationBarHidden:NO animated:YES];
         
         accessToken = apiToken;
+        
+        //title
+        self.title = @"Friends";
+        
+        // Do any additional setup after loading the view.
+        
+        tabBarItemArray = [[NSMutableArray alloc] init];
+        viewContArray = [[NSMutableArray alloc] init];
+        
+        //initialize the two view controllers
+        FriendsTableViewController *friendVC = [[FriendsTableViewController alloc] initWithAccessToken:accessToken];
+        friendVC.delegate = self;
+        
+        ImagesTableViewController *imageVC = [[ImagesTableViewController alloc] initWithAccessToken:accessToken];
+        
+        friendVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Friends" image:nil selectedImage:nil];
+        [friendVC.tabBarItem setTag:0];
+        
+        imageVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Images" image:nil selectedImage:nil];
+        [imageVC.tabBarItem setTag:1];
+        
+        [tabBarItemArray addObject:friendVC.tabBarItem];
+        [viewContArray addObject:friendVC];
+        
+        [tabBarItemArray addObject:imageVC.tabBarItem];
+        [viewContArray addObject:imageVC];
+        
+        self.tabBarItemArray = tabBarItemArray;
+        [self setViewControllers:@[friendVC, imageVC]];
+        
+        self.selectedViewController = friendVC;
     }
     
     return self;
@@ -55,37 +86,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //title
-    self.tabBarController.title = @"Friends";
-    
-    // Do any additional setup after loading the view.
-    
-    tabBarItemArray = [[NSMutableArray alloc] init];
-    viewContArray = [[NSMutableArray alloc] init];
-    
-    //initialize the two view controllers
-    FriendsTableViewController *friendVC = [[FriendsTableViewController alloc] init];
-    friendVC.delegate = self;
-    
-    ImagesTableViewController *imageVC = [[ImagesTableViewController alloc] init];
-    
-    friendVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Friends" image:nil selectedImage:nil];
-    [friendVC.tabBarItem setTag:0];
-    
-    imageVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Images" image:nil selectedImage:nil];
-    [imageVC.tabBarItem setTag:1];
-    
-    [tabBarItemArray addObject:friendVC.tabBarItem];
-    [viewContArray addObject:friendVC];
-    
-    [tabBarItemArray addObject:imageVC.tabBarItem];
-    [viewContArray addObject:imageVC];
-    
-    self.tabBarItemArray = tabBarItemArray;
-    [self setViewControllers:@[friendVC, imageVC]];
-    
-    self.selectedViewController = friendVC;
 }
 
 - (void)didReceiveMemoryWarning

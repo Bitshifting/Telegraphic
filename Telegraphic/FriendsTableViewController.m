@@ -16,7 +16,7 @@
 
 @implementation FriendsTableViewController
 
-@synthesize queue, arrOfFriends, delegate;
+@synthesize queue, arrOfFriends, delegate, accessToken;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -24,6 +24,16 @@
     if (self) {
         // Custom initialization
     }
+    return self;
+}
+
+-(id)initWithAccessToken:(NSString*)apiToken {
+    self = [super init];
+    
+    if(self) {
+        accessToken = apiToken;
+    }
+    
     return self;
 }
 
@@ -42,14 +52,14 @@
     
     
     // Uncomment the following line to preserve selection between presentations.
-    self.clearsSelectionOnViewWillAppear = NO;
+    //self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 -(IBAction)checkFriends:(NSTimer*)timer {
-    NSURLRequest *req = [APIFunctions getUserList:[SecretKeys getURL]];
+    NSURLRequest *req = [APIFunctions getUserList:[SecretKeys getURL] withAccessToken:accessToken];
     
     [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
@@ -62,21 +72,23 @@
         
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
         
-        NSArray *arrOfUsers = [dict objectForKey:@"items"];
-        
-        NSMutableArray *users = [[NSMutableArray alloc] init];
-        
-        for(NSDictionary *dictUsers in arrOfUsers) {
-            [users addObject:[dictUsers objectForKey:@"username"]];
+        if(dict && [[dict objectForKey:@"success"] boolValue]) {
+            
+            NSArray *arrOfUsers = [dict objectForKey:@"items"];
+            
+            NSMutableArray *users = [[NSMutableArray alloc] init];
+            
+            for(NSDictionary *dictUsers in arrOfUsers) {
+                [users addObject:[dictUsers objectForKey:@"username"]];
+            }
+            
+            arrOfFriends = users;
+            
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [self.tableView reloadData];
+            }];
+            
         }
-        
-        arrOfFriends = users;
-        
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [self.tableView reloadData];
-        }];
-        
-
         
     }];
 }

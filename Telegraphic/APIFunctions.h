@@ -10,7 +10,7 @@
 
 @interface APIFunctions : NSObject
 
-+(NSURLRequest*) getUserList:(NSString*)url;
++(NSMutableURLRequest*) getUserList:(NSString*)url withAccessToken:(NSString*)apiToken;
 +(NSMutableURLRequest*) registerUser:(NSString*)url withUsername:(NSString*)username withPassHash:(NSString*)passHash withPhoneNumb:(NSString*)phoneNumb;
 +(NSMutableURLRequest*) loginUser:(NSString*)url withUsername:(NSString*)username withPassHash:(NSString*)passHash;
 +(NSMutableURLRequest*) createImage:(NSString*)url withAccessToken:(NSString*)apiToken withEditTime:(NSNumber*)editTime withHopsLeft:(NSNumber*)hopsLeft withNextUser:(NSString*)nextUser withImage:(NSString*)image;

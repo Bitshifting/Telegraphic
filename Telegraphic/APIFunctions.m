@@ -10,14 +10,12 @@
 
 @implementation APIFunctions
 
-#pragma mark Get Functions
+#pragma mark Post Functions
 
 //see who is controlling the fountain and how is in queue
-+(NSURLRequest*) getUserList:(NSString*)url {
-    return [self queryNoBody:[NSString stringWithFormat:@"%@/user/list", url]];
++(NSMutableURLRequest*) getUserList:(NSString*)url withAccessToken:(NSString*)apiToken {
+    return [self queryWithBody:[NSString stringWithFormat:@"%@/user/list", url] withDictionary:@{@"accessToken": apiToken}];
 }
-
-#pragma mark Post Functions
 
 +(NSMutableURLRequest*) registerUser:(NSString*)url withUsername:(NSString*)username withPassHash:(NSString*)passHash withPhoneNumb:(NSString*)phoneNumb {
     return [self queryWithBody:[NSString stringWithFormat:@"%@/user/register", url] withDictionary:@{@"username": username, @"passwordHash" : passHash, @"phoneNumber":phoneNumb}];
