@@ -7,6 +7,9 @@
 //
 
 #import "LoginViewController.h"
+#import "APIFunctions.h"
+#import "SecretKeys.h"
+#import "DrawViewController.h"
 
 @interface LoginViewController ()
 
@@ -14,16 +17,14 @@
 
 @implementation LoginViewController
 
-@synthesize usernameField;
-@synthesize passwordField;
-
-
+@synthesize usernameField, passwordField, queue;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        queue = [[NSOperationQueue alloc] init];
     }
     return self;
 }
@@ -37,6 +38,7 @@
     self.originalCenter = self.view.center;
     NSLog(@"%@", NSStringFromCGPoint(self.originalCenter));
     // Do any additional setup after loading the view from its nib.
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,11 +48,47 @@
 }
 
 - (IBAction)loginButton:(UIButton *)sender {
-    NSString* username = usernameField.text;
-    NSLog(username);
+    
+    NSMutableURLRequest *req = [APIFunctions loginUser:[SecretKeys getURL] withUsername:usernameField.text withPassHash:passwordField.text];
+    
+    [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+        //if there is an error, return
+        if(error) {
+            return;
+        }
+        
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        
+        if(dict && [[dict objectForKey:@"success"] boolValue] && [[dict objectForKey:@"message"] isEqualToString:@"logged in"]) {
+            
+            NSLog(@"Logged in successfully!");
+        }
+        
+    }];
 }
 
 - (IBAction)creatAccountButton:(UIButton *)sender {
+    NSMutableURLRequest *req = [APIFunctions registerUser:[SecretKeys getURL] withUsername:usernameField.text withPassHash:passwordField.text withPhoneNumb:usernameField.text];
+    
+    [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+        //if there is an error, return
+        if(error) {
+            return;
+        }
+        
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        
+        if(dict && [[dict objectForKey:@"success"] boolValue]) {
+            NSLog(@"Successfully registered teh account");
+        }
+        
+    }];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

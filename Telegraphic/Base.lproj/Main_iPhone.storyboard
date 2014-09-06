@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="t5F-GR-SDk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="fna-gN-liV">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
+        <!--Tab View Controller-->
+        <scene sceneID="TaU-ZS-5QY">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="fna-gN-liV" customClass="TabViewController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BR1-xi-V5h">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="t5F-GR-SDk" kind="relationship" relationship="rootViewController" id="IiO-WL-Zop"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kor-V1-E0R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-951" y="-514"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="2Iz-jm-Q7d">
             <objects>
@@ -63,6 +78,7 @@
                         <color key="backgroundColor" red="0.99770806759999997" green="0.4705982058" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="olS-hJ-ctV"/>
                     <connections>
                         <outlet property="passwordField" destination="rBw-RM-bew" id="ZiG-Pz-siE"/>
                         <outlet property="usernameField" destination="2or-FD-wde" id="HW9-V3-R3V"/>
@@ -70,7 +86,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="izh-YW-48w" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-62" y="207"/>
+            <point key="canvasLocation" x="-408" y="-514"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

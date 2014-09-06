@@ -25,6 +25,9 @@
 		9FE1D04519BB29D800CE27EA /* DrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D04219BB29D800CE27EA /* DrawView.m */; };
 		9FE1D04619BB29D800CE27EA /* DrawViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D04419BB29D800CE27EA /* DrawViewController.m */; };
 		9FE1D04919BB29DF00CE27EA /* UIOutlineLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D04819BB29DF00CE27EA /* UIOutlineLabel.m */; };
+		9FE1D04C19BB2A8600CE27EA /* SecretKeys.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D04B19BB2A8600CE27EA /* SecretKeys.m */; };
+		9FE1D04F19BB2AD300CE27EA /* APIFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D04E19BB2AD300CE27EA /* APIFunctions.m */; };
+		9FE1D05219BB342500CE27EA /* TabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE1D05119BB342500CE27EA /* TabViewController.m */; };
 		A70A617B19BB0CE400FF5BC5 /* InputTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = A70A617A19BB0CE400FF5BC5 /* InputTextField.m */; };
 		A782541B19BAFDF0005212A9 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A782541919BAFDF0005212A9 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
@@ -54,7 +57,7 @@
 		9F8E2F1119BAF9E900737F83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		9F8E2F1319BAF9E900737F83 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		9F8E2F1419BAF9E900737F83 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		9F8E2F1619BAF9E900737F83 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9F8E2F1619BAF9E900737F83 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Telegraphic/Images.xcassets; sourceTree = "<group>"; };
 		9F8E2F1C19BAF9E900737F83 /* TelegraphicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelegraphicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F8E2F1D19BAF9E900737F83 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		9F8E2F2519BAF9E900737F83 /* TelegraphicTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TelegraphicTests-Info.plist"; sourceTree = "<group>"; };
@@ -66,6 +69,12 @@
 		9FE1D04419BB29D800CE27EA /* DrawViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawViewController.m; sourceTree = "<group>"; };
 		9FE1D04719BB29DF00CE27EA /* UIOutlineLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIOutlineLabel.h; sourceTree = "<group>"; };
 		9FE1D04819BB29DF00CE27EA /* UIOutlineLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIOutlineLabel.m; sourceTree = "<group>"; };
+		9FE1D04A19BB2A8600CE27EA /* SecretKeys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecretKeys.h; sourceTree = "<group>"; };
+		9FE1D04B19BB2A8600CE27EA /* SecretKeys.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecretKeys.m; sourceTree = "<group>"; };
+		9FE1D04D19BB2AD300CE27EA /* APIFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APIFunctions.h; sourceTree = "<group>"; };
+		9FE1D04E19BB2AD300CE27EA /* APIFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APIFunctions.m; sourceTree = "<group>"; };
+		9FE1D05019BB342500CE27EA /* TabViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabViewController.h; sourceTree = "<group>"; };
+		9FE1D05119BB342500CE27EA /* TabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabViewController.m; sourceTree = "<group>"; };
 		A70A617919BB0CE400FF5BC5 /* InputTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputTextField.h; sourceTree = "<group>"; };
 		A70A617A19BB0CE400FF5BC5 /* InputTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InputTextField.m; sourceTree = "<group>"; };
 		A782541819BAFDF0005212A9 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -103,6 +112,8 @@
 				9F8E2F2319BAF9E900737F83 /* TelegraphicTests */,
 				9F8E2EFA19BAF9E800737F83 /* Frameworks */,
 				9F8E2EF919BAF9E800737F83 /* Products */,
+				9F8E2F0219BAF9E900737F83 /* Supporting Files */,
+				9F8E2F1619BAF9E900737F83 /* Images.xcassets */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,23 +140,27 @@
 		9F8E2F0119BAF9E900737F83 /* Telegraphic */ = {
 			isa = PBXGroup;
 			children = (
+				A70A617819BB0CB500FF5BC5 /* UI */,
 				9FE1D04719BB29DF00CE27EA /* UIOutlineLabel.h */,
 				9FE1D04819BB29DF00CE27EA /* UIOutlineLabel.m */,
 				9FE1D04119BB29D800CE27EA /* DrawView.h */,
 				9FE1D04219BB29D800CE27EA /* DrawView.m */,
 				9FE1D04319BB29D800CE27EA /* DrawViewController.h */,
 				9FE1D04419BB29D800CE27EA /* DrawViewController.m */,
-				A70A617819BB0CB500FF5BC5 /* UI */,
 				9F8E2F0A19BAF9E900737F83 /* AppDelegate.h */,
 				9F8E2F0B19BAF9E900737F83 /* AppDelegate.m */,
 				9F8E2F0D19BAF9E900737F83 /* Main_iPhone.storyboard */,
 				9F8E2F1019BAF9E900737F83 /* Main_iPad.storyboard */,
 				9F8E2F1319BAF9E900737F83 /* ViewController.h */,
 				9F8E2F1419BAF9E900737F83 /* ViewController.m */,
-				9F8E2F1619BAF9E900737F83 /* Images.xcassets */,
-				9F8E2F0219BAF9E900737F83 /* Supporting Files */,
 				A782541819BAFDF0005212A9 /* LoginViewController.h */,
 				A782541919BAFDF0005212A9 /* LoginViewController.m */,
+				9FE1D04A19BB2A8600CE27EA /* SecretKeys.h */,
+				9FE1D04B19BB2A8600CE27EA /* SecretKeys.m */,
+				9FE1D04D19BB2AD300CE27EA /* APIFunctions.h */,
+				9FE1D04E19BB2AD300CE27EA /* APIFunctions.m */,
+				9FE1D05019BB342500CE27EA /* TabViewController.h */,
+				9FE1D05119BB342500CE27EA /* TabViewController.m */,
 			);
 			path = Telegraphic;
 			sourceTree = "<group>";
@@ -159,6 +174,7 @@
 				9F8E2F0919BAF9E900737F83 /* Telegraphic-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = Telegraphic;
 			sourceTree = "<group>";
 		};
 		9F8E2F2319BAF9E900737F83 /* TelegraphicTests */ = {
@@ -286,13 +302,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FE1D05219BB342500CE27EA /* TabViewController.m in Sources */,
 				A70A617B19BB0CE400FF5BC5 /* InputTextField.m in Sources */,
+				9FE1D04C19BB2A8600CE27EA /* SecretKeys.m in Sources */,
 				9FE1D04919BB29DF00CE27EA /* UIOutlineLabel.m in Sources */,
 				A782541B19BAFDF0005212A9 /* LoginViewController.m in Sources */,
 				9FE1D04619BB29D800CE27EA /* DrawViewController.m in Sources */,
 				9FE1D04519BB29D800CE27EA /* DrawView.m in Sources */,
 				9F8E2F1519BAF9E900737F83 /* ViewController.m in Sources */,
 				9F8E2F0C19BAF9E900737F83 /* AppDelegate.m in Sources */,
+				9FE1D04F19BB2AD300CE27EA /* APIFunctions.m in Sources */,
 				9F8E2F0819BAF9E900737F83 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

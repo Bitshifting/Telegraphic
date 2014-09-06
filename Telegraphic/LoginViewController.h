@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController <UITextFieldDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *usernameField;
 
 @property (strong, nonatomic) IBOutlet UITextField *passwordField;
 @property CGPoint originalCenter;
+
+//queue for async calls
+@property NSOperationQueue *queue;
 
 - (IBAction)loginButton:(UIButton *)sender;
 
