@@ -109,15 +109,25 @@
     [navCont presentViewController:drawVC animated:YES completion:nil];
 }
 
--(void) viewImage:(NSString *)text {
+-(void) viewImage:(NSString *)text isLast:(BOOL)isLast withUUID:(NSString *)nUUID{
     
+    NSData *data = [[NSData alloc]initWithBase64EncodedString:text options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    
+    DrawViewController *drawVC = [[DrawViewController alloc] initWithNavViewController:navCont withTime:[NSNumber numberWithInt:TIME_TO_EDIT] withText:@"boi" withImage:[UIImage imageWithData:data] isEditable:!isLast];
+    drawVC.delegate = self;
+    
+    [navCont presentViewController:drawVC animated:YES completion:nil];
 }
 
--(void) drawViewEnded:(UIImage *)nImage withText:(NSString *)nText{
+-(void) drawViewEnded:(UIImage *)nImage withText:(NSString *)nText isEditable:(BOOL)nIsEditable {
     
     NSData *imageData = UIImageJPEGRepresentation(nImage, 1.0);
     
     NSString *encodedString = [imageData base64EncodedStringWithOptions:0];
+    
+    if(encodedString == nil) {
+        return;
+    }
     
     NSMutableURLRequest *req = [APIFunctions createImage:[SecretKeys getURL] withAccessToken:accessToken withEditTime:[NSNumber numberWithInt:TIME_TO_EDIT] withHopsLeft:[NSNumber numberWithInt:MAX_HOPS] withNextUser:nText withImage:encodedString];
     

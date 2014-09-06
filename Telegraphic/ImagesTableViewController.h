@@ -10,7 +10,7 @@
 
 @protocol ImagesTableDelegate <NSObject>
 
--(void) viewImage:(NSString*)text;
+-(void) viewImage:(NSString*)text isLast:(BOOL)isLast withUUID:(NSString*)nUUID;
 
 @end
 
@@ -22,6 +22,8 @@
 @property NSOperationQueue *queue;
 @property NSMutableArray *arrOfImages;
 @property NSMutableArray *arrOfUUID;
+@property NSMutableArray *arrOfHops;
+@property NSMutableArray *arrOfBase64;
 @property id<ImagesTableDelegate> delegate;
 
 -(id) initWithAccessToken:(NSString*)apiToken;

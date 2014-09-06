@@ -14,7 +14,9 @@
 
 @property UIPanGestureRecognizer *panGesture;
 
-- (id)initWithFrame:(CGRect)frame difference:(CGFloat) nDifference;
+@property BOOL isEditable;
+
+- (id)initWithFrame:(CGRect)frame difference:(CGFloat) nDifference isEditable:(BOOL)nIsEditable;
 
 - (void) setColorRed:(CGFloat)nRed green:(CGFloat)nGreen blue:(CGFloat)nBlue;
 

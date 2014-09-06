@@ -32,7 +32,7 @@
     int count;
 }
 
-@synthesize drawing, blueButton, redButton, greenButton, blackButton, eraseButton, brushScaleLabel, navCont, timer, timerLabel, delegate, text;
+@synthesize drawing, blueButton, redButton, greenButton, blackButton, eraseButton, brushScaleLabel, navCont, timer, timerLabel, delegate, text, isEditable, imageNow;
 
 - (id)initWithNavViewController:(UINavigationController*)nNavCont withTime:(NSNumber*)nTime withText:(NSString *)nText {
     
@@ -42,6 +42,22 @@
         navCont = nNavCont;
         timer = nTime;
         text = nText;
+        isEditable = YES;
+    }
+    
+    return self;
+}
+
+- (id)initWithNavViewController:(UINavigationController*)nNavCont withTime:(NSNumber*)nTime withText:(NSString *)nText withImage:(UIImage*)image isEditable:(BOOL)nIsEditable {
+    
+    self = [super init];
+    
+    if(self) {
+        navCont = nNavCont;
+        timer = nTime;
+        text = nText;
+        imageNow = image;
+        isEditable = nIsEditable;
     }
     
     return self;
@@ -115,9 +131,23 @@
     selectedButton = blackButton;
     
     //now set the drawing view above the main view
-    drawing = [[DrawView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, originHeightOfButton) difference:heightOfButton];
+    drawing = [[DrawView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, originHeightOfButton) difference:heightOfButton isEditable:isEditable];
+    
+    drawing.tempDrawImage.image = imageNow;
     
     [self.view addSubview:drawing];
+    
+    //set a timer
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerHit:) userInfo:nil repeats:YES];
+    
+    timerLabel = [[UIOutlineLabel alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, heightOfButton)];
+    [timerLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    [self.view addSubview:timerLabel];
+    
+    if(!isEditable) {
+        return;
+    }
     
     //add the pinch recognizer
     UIPinchGestureRecognizer *pinch =[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
@@ -134,14 +164,6 @@
     
     [self.view addSubview:brushScaleLabel];
     
-    timerLabel = [[UIOutlineLabel alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, heightOfButton)];
-    [timerLabel setTextAlignment:NSTextAlignmentCenter];
-    
-    [self.view addSubview:timerLabel];
-    
-    //set a timer
-    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerHit:) userInfo:nil repeats:YES];
-    
     count = 0;
 }
 
@@ -156,7 +178,7 @@
     if(counter == 0) {
         [sender invalidate];
         
-        [delegate drawViewEnded:drawing.tempDrawImage.image withText:text];
+        [delegate drawViewEnded:drawing.tempDrawImage.image withText:text isEditable:isEditable];
         
         [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
             [self dismissViewControllerAnimated:YES completion:nil];

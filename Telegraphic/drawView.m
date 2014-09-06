@@ -22,9 +22,9 @@
     BOOL pinch;
 }
 
-@synthesize tempDrawImage, panGesture;
+@synthesize tempDrawImage, panGesture, isEditable;
 
-- (id)initWithFrame:(CGRect)frame difference:(CGFloat) nDifference
+- (id)initWithFrame:(CGRect)frame difference:(CGFloat) nDifference isEditable:(BOOL)nIsEditable
 {
     self = [super initWithFrame:frame];
     if (self) {
@@ -37,15 +37,19 @@
         opacity = 1.0;
         difference = nDifference;
         
+        isEditable = nIsEditable;
+        
         //drawing context is everything but the bottom buttons
         tempDrawImage = [[UIImageView alloc] initWithFrame:[self frame]];
         
         [self addSubview:tempDrawImage];
         
-        panGesture = [[UIPanGestureRecognizer
-                       alloc] initWithTarget:self action:@selector(handlePan:)];
-        [panGesture setDelegate:self];
-        [self addGestureRecognizer:panGesture];
+        if(isEditable) {
+            panGesture = [[UIPanGestureRecognizer
+                          alloc] initWithTarget:self action:@selector(handlePan:)];
+            [panGesture setDelegate:self];
+            [self addGestureRecognizer:panGesture];
+        }
         
     }
     return self;

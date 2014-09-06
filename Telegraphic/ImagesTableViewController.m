@@ -16,7 +16,7 @@
 
 @implementation ImagesTableViewController
 
-@synthesize queue, arrOfImages, delegate, accessToken, arrOfUUID;
+@synthesize queue, arrOfImages, delegate, accessToken, arrOfUUID, arrOfHops, arrOfBase64;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -78,13 +78,21 @@
             
             NSMutableArray *uuid = [[NSMutableArray alloc] init];
             
+            NSMutableArray *hops = [[NSMutableArray alloc] init];
+            
+            NSMutableArray *base64 = [[NSMutableArray alloc] init];
+            
             for(NSDictionary *dictImages in arrImg) {
                 [images addObject:[dictImages objectForKey:@"previousUser"]];
                 [uuid addObject:[dictImages objectForKey:@"imageUUID"]];
+                [hops addObject:[dictImages objectForKey:@"hopsLeft"]];
+                [base64 addObject:[dictImages objectForKey:@"image"]];
             }
             
             arrOfImages = images;
             arrOfUUID = uuid;
+            arrOfHops = hops;
+            arrOfBase64 = base64;
             
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 [self.tableView reloadData];
@@ -103,7 +111,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    [delegate viewImage:[arrOfUUID objectAtIndex:indexPath.row]];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    BOOL isLast = NO;
+    
+    if(cell.backgroundColor == [UIColor greenColor]) {
+        isLast = YES;
+    }
+    
+    [delegate viewImage:[arrOfBase64 objectAtIndex:indexPath.row] isLast:isLast withUUID:[arrOfUUID objectAtIndex:indexPath.row]];
 }
 
 #pragma mark - Table view data source
@@ -126,6 +142,12 @@
     NSString *identifier = @"imageCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    if([[arrOfHops objectAtIndex:indexPath.row] intValue] != 0) {
+        [cell setBackgroundColor:[UIColor orangeColor]];
+    } else {
+        [cell setBackgroundColor:[UIColor greenColor]];
+    }
     
     if(cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
