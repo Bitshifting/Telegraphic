@@ -7,8 +7,6 @@
 //
 
 #import "TabViewController.h"
-#import "FriendsTableViewController.h"
-#import "ImagesTableViewController.h"
 #import "APIFunctions.h"
 #import "SecretKeys.h"
 
@@ -21,7 +19,7 @@
 
 @implementation TabViewController
 
-@synthesize tabBarItemArray, viewContArray, navCont, accessToken, queue;
+@synthesize tabBarItemArray, viewContArray, navCont, accessToken, queue, friendVC, imageVC;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -36,15 +34,9 @@
     self = [super init];
     
     if(self) {
-        
         queue = [[NSOperationQueue alloc] init];
-        
-        navCont = nNavCont;
-        
-        [navCont pushViewController:self animated:NO];
-        [navCont setNavigationBarHidden:NO animated:YES];
-        
         accessToken = apiToken;
+        navCont = nNavCont;
         
         //title
         self.title = @"Friends";
@@ -55,10 +47,11 @@
         viewContArray = [[NSMutableArray alloc] init];
         
         //initialize the two view controllers
-        FriendsTableViewController *friendVC = [[FriendsTableViewController alloc] initWithAccessToken:accessToken];
+        friendVC = [[FriendsTableViewController alloc] initWithAccessToken:accessToken];
         friendVC.delegate = self;
         
-        ImagesTableViewController *imageVC = [[ImagesTableViewController alloc] initWithAccessToken:accessToken];
+        imageVC = [[ImagesTableViewController alloc] initWithAccessToken:accessToken];
+        imageVC.delegate = self;
         
         friendVC.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Friends" image:nil selectedImage:nil];
         [friendVC.tabBarItem setTag:0];
@@ -75,7 +68,8 @@
         self.tabBarItemArray = tabBarItemArray;
         [self setViewControllers:@[friendVC, imageVC]];
         
-        self.selectedViewController = friendVC;
+        [navCont setNavigationBarHidden:NO animated:YES];
+        
     }
     
     return self;
@@ -99,7 +93,7 @@
     //show the bar
     if([item tag] == 0) {
         self.title = @"Friends";
-    } else {
+    } else if([item tag] == 1) {
         //show the bar
         self.title = @"Images";
     }
@@ -113,6 +107,10 @@
     drawVC.delegate = self;
     
     [navCont presentViewController:drawVC animated:YES completion:nil];
+}
+
+-(void) viewImage:(NSString *)text {
+    
 }
 
 -(void) drawViewEnded:(UIImage *)nImage withText:(NSString *)nText{

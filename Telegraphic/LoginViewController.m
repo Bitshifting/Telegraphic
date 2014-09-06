@@ -85,8 +85,6 @@
                 TabViewController *tabVC =[[TabViewController alloc] initWithNavigationController:self.navigationController withAccessTokens:accessToken];
                 
                 [self.navigationController setViewControllers:@[tabVC]];
-                
-                [self.navigationController presentViewController:tabVC animated:YES completion:nil];
             }];
 
         }

@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "FriendsTableViewController.h"
 #import "DrawViewController.h"
+#import "ImagesTableViewController.h"
 
-@interface TabViewController : UITabBarController <FriendsTableDelegate, DrawViewDelegate>
+@interface TabViewController : UITabBarController <FriendsTableDelegate, DrawViewDelegate, ImagesTableDelegate>
 
 @property NSMutableArray *tabBarItemArray;
 @property NSMutableArray *viewContArray;
@@ -19,6 +20,9 @@
 @property NSString* accessToken;
 
 @property NSOperationQueue *queue;
+
+@property FriendsTableViewController *friendVC;
+@property ImagesTableViewController *imageVC;
 
 
 - (id) initWithNavigationController:(UINavigationController*)nNavCont withAccessTokens:(NSString*)apiToken;
