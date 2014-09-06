@@ -11,13 +11,16 @@
 #import "SecretKeys.h"
 #import "TabViewController.h"
 
+#define TIME_TO_EDIT 5
+#define MAX_HOPS 5
+
 @interface ImagesTableViewController ()
 
 @end
 
 @implementation ImagesTableViewController
 
-@synthesize queue, arrOfPrevUsers, accessToken, arrOfUUID, arrOfHops, arrOfBase64, navCont, imageTimer;
+@synthesize queue, arrOfPrevUsers, accessToken, arrOfUUID, arrOfHops, arrOfBase64, navCont, imageTimer, tempUUID;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -72,6 +75,43 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+- (void) openDrawing:(NSString*)text withImage:(UIImage*)image {
+    DrawViewController *drawVC = [[DrawViewController alloc] initWithNavViewController:self.navigationController withTime:[NSNumber numberWithInt:TIME_TO_EDIT] withText:text withImage:image isEditable:NO isCreate:NO];
+    
+    drawVC.delegate = self;
+    
+    [self.navigationController presentViewController:drawVC animated:YES completion:nil];
+    
+    tempUUID = text;
+}
+
+#pragma mark DrawView Delegates
+-(void) finishedImage:(UIImage *)nImage{
+    //clean up here
+    NSMutableURLRequest *req = [APIFunctions seenImage:[SecretKeys getURL] withAccessToken:accessToken withUUID:tempUUID];
+    
+    [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+        //if there is an error, return
+        if(error) {
+            return;
+        }
+        
+        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+        
+        if([[dict objectForKey:@"success"] boolValue]) {
+            NSLog(@"Image cleaned!");
+        }
+        
+    }];
+    
+    [imageTimer invalidate];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(IBAction)checkImages:(NSTimer*)timer {
@@ -152,7 +192,12 @@
     
     [imageTimer invalidate];
     
-    [navCont pushViewController:[[TabViewController alloc] initWithImage:[UIImage imageWithData:data] withAccessToken:accessToken isEditable:!isLast isCreate:NO withUUID:[arrOfUUID objectAtIndex:indexPath.row]] animated:YES];
+    if([[cell backgroundColor] isEqual:[UIColor greenColor]]) {
+        [self openDrawing:[arrOfUUID objectAtIndex:indexPath.row] withImage:[UIImage imageWithData:data]];
+    } else {
+        [navCont pushViewController:[[TabViewController alloc] initWithImage:[UIImage imageWithData:data] withAccessToken:accessToken isEditable:!isLast isCreate:NO withUUID:[arrOfUUID objectAtIndex:indexPath.row]] animated:YES];
+    }
+    
 }
 
 #pragma mark - Table view data source

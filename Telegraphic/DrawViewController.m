@@ -66,6 +66,24 @@
     
     float widthOfButton = [self.view frame].size.width / NUM_BUTTONS;
     
+    //now set the drawing view above the main view
+    drawing = [[DrawView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, originHeightOfButton) difference:heightOfButton isEditable:isEditable];
+    
+    drawing.tempDrawImage.image = imageNow;
+    
+    [self.view addSubview:drawing];
+    
+    //set a timer
+    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerHit:) userInfo:nil repeats:YES];
+    
+    timerLabel = [[UIOutlineLabel alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, heightOfButton)];
+    [timerLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    [self.view addSubview:timerLabel];
+    
+    if(!isEditable) {
+        return;
+    }
     
     //set custom button type
     
@@ -116,25 +134,6 @@
     [eraseButton addTarget:self action:@selector(setColor:) forControlEvents:UIControlEventTouchDown];
     
     selectedButton = blackButton;
-    
-    //now set the drawing view above the main view
-    drawing = [[DrawView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, originHeightOfButton) difference:heightOfButton isEditable:isEditable];
-    
-    drawing.tempDrawImage.image = imageNow;
-    
-    [self.view addSubview:drawing];
-    
-    //set a timer
-    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerHit:) userInfo:nil repeats:YES];
-    
-    timerLabel = [[UIOutlineLabel alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, heightOfButton)];
-    [timerLabel setTextAlignment:NSTextAlignmentCenter];
-    
-    [self.view addSubview:timerLabel];
-    
-    if(!isEditable) {
-        return;
-    }
     
     //add the pinch recognizer
     UIPinchGestureRecognizer *pinch =[[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];

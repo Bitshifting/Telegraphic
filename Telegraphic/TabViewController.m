@@ -45,37 +45,35 @@
         
         accessToken = apiToken;
         
-        if(isEditable || isCreate) {
-            // Do any additional setup after loading the view.
-            
-            tabBarItemArray = [[NSMutableArray alloc] init];
-            viewContArray = [[NSMutableArray alloc] init];
-            
-            //initialize the two view controllers
-            friendVC = [[FriendsTableViewController alloc] initWithAccessToken:accessToken];
-            friendVC.delegate = self;
-            
-            friendVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:0 ];
-            friendVC.title = @"Friends";
-            
-            //initialize everyone
-            everyVC = [[EveryoneTableTableViewController alloc] initWithAccessToken:accessToken];
-            everyVC.delegate = self;
-            
-            everyVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:1];
-            everyVC.title = @"Everyone";
-            
-            [tabBarItemArray addObject:friendVC.tabBarItem];
-            [viewContArray addObject:friendVC];
-            [tabBarItemArray addObject:everyVC.tabBarItem];
-            [viewContArray addObject:everyVC];
-            
-            //now add the everyone
-            self.tabBarItemArray = tabBarItemArray;
-            [self setViewControllers:@[friendVC, everyVC]];
-        } else {
-            [self openDrawing:nil];
-        }
+        // Do any additional setup after loading the view.
+        
+        tabBarItemArray = [[NSMutableArray alloc] init];
+        viewContArray = [[NSMutableArray alloc] init];
+        
+        //initialize the two view controllers
+        friendVC = [[FriendsTableViewController alloc] initWithAccessToken:accessToken];
+        friendVC.delegate = self;
+        
+        friendVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:0 ];
+        friendVC.title = @"Friends";
+        
+        //initialize everyone
+        everyVC = [[EveryoneTableTableViewController alloc] initWithAccessToken:accessToken];
+        everyVC.delegate = self;
+        
+        everyVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:1];
+        everyVC.title = @"Everyone";
+        
+        [tabBarItemArray addObject:friendVC.tabBarItem];
+        [viewContArray addObject:friendVC];
+        [tabBarItemArray addObject:everyVC.tabBarItem];
+        [viewContArray addObject:everyVC];
+        
+        //now add the everyone
+        self.tabBarItemArray = tabBarItemArray;
+        [self setViewControllers:@[friendVC, everyVC]];
+        [self openDrawing:nil];
+        
         
         
     }
@@ -169,17 +167,12 @@
     
     NSMutableURLRequest *req = [APIFunctions updateImage:[SecretKeys getURL] withUUID:UUID withAccessToken:accessToken withNextUser:nNextUser withImage:encodedString];
     
-     NSLog(@"Request body %@", [[NSString alloc] initWithData:[req HTTPBody] encoding:NSUTF8StringEncoding]);
-    
     [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        
-        NSLog(@"WAAAA");
         
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         
         //if there is an error, return
         if(error) {
-            NSLog([error description]);
             return;
         }
         
@@ -236,14 +229,14 @@
 
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+ {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

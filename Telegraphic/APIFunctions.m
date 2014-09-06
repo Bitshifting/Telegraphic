@@ -40,7 +40,7 @@
 }
 
 +(NSMutableURLRequest*) seenImage:(NSString*)url withAccessToken:(NSString*)apiToken withUUID:(NSString*)uuid {
-    return [self queryWithBody:[NSString stringWithFormat:@"%@/image/seen", url] withDictionary:@{@"accessToken": apiToken, @"imageUUID" : uuid}];
+    return [self queryWithBody:[NSString stringWithFormat:@"%@/image/seen", url] withDictionary:@{@"accessToken": apiToken, @"uuid" : uuid}];
 }
 
 +(NSMutableURLRequest*) getFriends:(NSString*)url withAccessToken:(NSString*)apiToken {

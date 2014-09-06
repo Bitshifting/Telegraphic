@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DrawViewController.h"
 
-@interface ImagesTableViewController : UITableViewController
+@interface ImagesTableViewController : UITableViewController <DrawViewDelegate>
 
 @property NSString* accessToken;
 @property NSOperationQueue *queue;
@@ -20,6 +21,8 @@
 @property (weak) UINavigationController *navCont;
 
 @property NSTimer *imageTimer;
+
+@property NSString* tempUUID;
 
 -(id) initWithAccessToken:(NSString*)apiToken withNavigationController:(UINavigationController*)nNavCont;
 
