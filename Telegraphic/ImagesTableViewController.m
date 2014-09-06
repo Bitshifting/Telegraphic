@@ -46,7 +46,9 @@
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    imageTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(checkImages:) userInfo:self repeats:YES];
+    imageTimer = [NSTimer scheduledTimerWithTimeInterval:10.0f target:self selector:@selector(checkImages:) userInfo:self repeats:YES];
+    
+    [imageTimer fire];
 }
 
 - (void)viewDidLoad
@@ -61,8 +63,10 @@
     
     queue = [[NSOperationQueue  alloc] init];
     
-    imageTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(checkImages:) userInfo:self repeats:YES];
-     
+    imageTimer = [NSTimer scheduledTimerWithTimeInterval:10.0f target:self selector:@selector(checkImages:) userInfo:self repeats:YES];
+    
+    [imageTimer fire];
+    
     // Uncomment the following line to preserve selection between presentations.
     //self.clearsSelectionOnViewWillAppear = NO;
     

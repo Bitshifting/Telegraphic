@@ -121,6 +121,9 @@
     
     drawVC.delegate = self;
     
+    [friendVC.friendsTimer invalidate];
+    [everyVC.everyoneTimer invalidate];
+    
     [self.navigationController presentViewController:drawVC animated:YES completion:nil];
 }
 
@@ -145,6 +148,9 @@
         }
         
     }];
+    
+    [friendVC.friendsTimer invalidate];
+    [everyVC.everyoneTimer invalidate];
     
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -180,6 +186,8 @@
         
     }];
     
+    [friendVC.friendsTimer invalidate];
+    [everyVC.everyoneTimer invalidate];
     
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -212,6 +220,9 @@
         }
         
     }];
+    
+    [friendVC.friendsTimer invalidate];
+    [everyVC.everyoneTimer invalidate];
     
     
     [self.navigationController popToRootViewControllerAnimated:YES];

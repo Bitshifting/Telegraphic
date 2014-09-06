@@ -47,9 +47,9 @@
     
     queue = [[NSOperationQueue alloc] init];
     
-    friendsTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(checkFriends:) userInfo:nil repeats:YES];
+    friendsTimer = [NSTimer scheduledTimerWithTimeInterval:10.0f target:self selector:@selector(checkFriends:) userInfo:nil repeats:YES];
     
-    
+    [friendsTimer fire];
     
     // Uncomment the following line to preserve selection between presentations.
     //self.clearsSelectionOnViewWillAppear = NO;
@@ -61,7 +61,9 @@
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    friendsTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(checkFriends:) userInfo:self repeats:YES];
+    friendsTimer = [NSTimer scheduledTimerWithTimeInterval:10.0f target:self selector:@selector(checkFriends:) userInfo:self repeats:YES];
+    
+    [friendsTimer fire];
 }
 
 -(IBAction)checkFriends:(NSTimer*)timer {

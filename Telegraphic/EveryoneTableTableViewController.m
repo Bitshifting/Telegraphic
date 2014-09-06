@@ -47,7 +47,9 @@
     
     queue = [[NSOperationQueue alloc] init];
     
-    everyoneTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(checkEveryone:) userInfo:nil repeats:YES];
+    everyoneTimer = [NSTimer scheduledTimerWithTimeInterval:10.0f target:self selector:@selector(checkEveryone:) userInfo:nil repeats:YES];
+    
+    [everyoneTimer fire];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -59,7 +61,9 @@
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    everyoneTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(checkEveryone:) userInfo:self repeats:YES];
+    everyoneTimer = [NSTimer scheduledTimerWithTimeInterval:10.0f target:self selector:@selector(checkEveryone:) userInfo:self repeats:YES];
+    
+    [everyoneTimer fire];
 }
 
 -(IBAction)checkEveryone:(NSTimer*)timer {
