@@ -31,7 +31,6 @@
 @property UIButton *redButton;
 @property UIButton *greenButton;
 @property UIButton *blackButton;
-@property UIButton *eraseButton;
 
 //editable
 @property BOOL isEditable;
@@ -43,7 +42,8 @@
 @property DrawView *drawing;
 
 //scale of brush label
-@property UIOutlineLabel *brushScaleLabel;
+@property UILabel *backLabel;
+@property UILabel *brushScaleLabel;
 @property UIOutlineLabel *timerLabel;
 
 //text to pass through

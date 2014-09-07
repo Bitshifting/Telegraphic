@@ -228,8 +228,22 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     
-    // set text
-    cell.textLabel.text = [arrOfPrevUsers objectAtIndex:indexPath.row];
+    //code for preview image (possible use for later)
+//    
+//    // set text
+//    cell.textLabel.text = [arrOfPrevUsers objectAtIndex:indexPath.row];
+//    
+//    //convert string to image
+//    NSString *image = [arrOfBase64 objectAtIndex:indexPath.row];
+//    
+//    NSData *data = [[NSData alloc]initWithBase64EncodedString:image options:NSDataBase64DecodingIgnoreUnknownCharacters];
+//    
+//    CGRect cellFrame = cell.contentView.frame;
+//    
+//    UIImageView *imv = [[UIImageView alloc] initWithFrame:CGRectMake(cellFrame.size.width - cellFrame.size.height, 0, cellFrame.size.height, cellFrame.size.height)];
+//    imv.image = [UIImage imageWithData:data];
+//    [cell.contentView addSubview:imv];
+    
     
     return cell;
 }
