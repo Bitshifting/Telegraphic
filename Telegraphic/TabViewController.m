@@ -10,7 +10,7 @@
 #import "APIFunctions.h"
 #import "SecretKeys.h"
 
-#define TIME_TO_EDIT 5
+#define TIME_TO_EDIT 10
 #define MAX_HOPS 5
 
 @interface TabViewController ()
