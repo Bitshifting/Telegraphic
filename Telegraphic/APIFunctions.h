@@ -19,4 +19,5 @@
 +(NSMutableURLRequest*) seenImage:(NSString*)url withAccessToken:(NSString*)apiToken withUUID:(NSString*)uuid;
 +(NSMutableURLRequest*) getFriends:(NSString*)url withAccessToken:(NSString*)apiToken;
 +(NSMutableURLRequest*) addFriend:(NSString*)url withUsername:(NSString*)username withAccessToken:(NSString*)apiToken;
++(NSMutableURLRequest*) removeFriend:(NSString*)url withUsername:(NSString*)username withAccessToken:(NSString*)apiToken;
 @end

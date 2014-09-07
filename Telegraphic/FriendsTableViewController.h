@@ -14,7 +14,7 @@
 
 @end
 
-@interface FriendsTableViewController : UITableViewController
+@interface FriendsTableViewController : UITableViewController <UIGestureRecognizerDelegate, UIAlertViewDelegate>
 
 @property NSOperationQueue *queue;
 @property NSMutableArray *arrOfFriends;
@@ -23,6 +23,8 @@
 @property NSString *accessToken;
 
 @property NSTimer *friendsTimer;
+
+@property NSString *temporaryName;
 
 -(id)initWithAccessToken:(NSString*)apiToken;
 

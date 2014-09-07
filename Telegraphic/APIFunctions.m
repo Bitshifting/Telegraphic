@@ -48,7 +48,11 @@
 }
 
 +(NSMutableURLRequest*) addFriend:(NSString*)url withUsername:(NSString*)username withAccessToken:(NSString*)apiToken {
-    return [self queryWithBody:[NSString stringWithFormat:@"%@/friends/add/%@", url, username] withDictionary:@{@"accessToken" : apiToken}];
+    return [self queryWithBody:[NSString stringWithFormat:@"%@/friends/add", url] withDictionary:@{@"accessToken" : apiToken, @"friend" : username}];
+}
+
++(NSMutableURLRequest*) removeFriend:(NSString*)url withUsername:(NSString*)username withAccessToken:(NSString*)apiToken {
+    return [self queryWithBody:[NSString stringWithFormat:@"%@/friends/delete", url] withDictionary:@{@"accessToken" : apiToken, @"friend" : username}];
 }
 
 

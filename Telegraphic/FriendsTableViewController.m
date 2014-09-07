@@ -16,7 +16,7 @@
 
 @implementation FriendsTableViewController
 
-@synthesize queue, arrOfFriends, delegate, accessToken, friendsTimer;
+@synthesize queue, arrOfFriends, delegate, accessToken, friendsTimer, temporaryName;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -64,6 +64,11 @@
     friendsTimer = [NSTimer scheduledTimerWithTimeInterval:10.0f target:self selector:@selector(checkFriends:) userInfo:self repeats:YES];
     
     [friendsTimer fire];
+    
+    UILongPressGestureRecognizer *lpgr = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
+    lpgr.minimumPressDuration = 1.0; //seconds
+    lpgr.delegate = self;
+    [self.tableView addGestureRecognizer:lpgr];
 }
 
 -(IBAction)checkFriends:(NSTimer*)timer {
@@ -145,6 +150,53 @@
     cell.textLabel.text = [arrOfFriends objectAtIndex:indexPath.row];
     
     return cell;
+}
+
+-(void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer
+{
+    CGPoint p = [gestureRecognizer locationInView:self.tableView];
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+    if (indexPath != nil) {
+        
+        if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+            NSLog(@"long press on table view at row %d", indexPath.row);
+            
+            temporaryName = [self.tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+            
+            //now show uialert allowing one to add as friend
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Remove as Friend" message:[NSString stringWithFormat:@"Remove %@ from friend's list?", temporaryName] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+            
+            [alert show];
+        }
+    }
+}
+
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if(buttonIndex == 0) {
+        NSLog(@"Cancelled");
+    } else {
+        NSMutableURLRequest *req = [APIFunctions removeFriend:[SecretKeys getURL] withUsername:temporaryName withAccessToken:accessToken];
+        
+        [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+            
+            [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            
+            //if there is an error, return
+            if(error) {
+                return;
+            }
+            
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            
+            if(dict && [[dict objectForKey:@"success"] boolValue]) {
+                NSLog(@"Friend Removed");
+            }
+            
+        }];
+        
+        
+    }
 }
 
 
