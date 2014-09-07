@@ -13,6 +13,9 @@
 #import "DrawViewController.h"
 #import "ImagesTableViewController.h"
 
+#define kUsername   @"Username"
+#define kPassword   @"Password"
+
 @interface LoginViewController ()
 
 @end
@@ -34,6 +37,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString* username = [defaults objectForKey:kUsername];
+    NSString* password = [defaults objectForKey:kPassword];
+    if (username != nil && password != nil) {
+        [self login:username withPassword:password];
+    }
+
+    
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.bounds = self.view.bounds;
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor yellowColor] CGColor], (id)[[UIColor orangeColor] CGColor], nil];
@@ -76,8 +87,11 @@
 }
 
 - (IBAction)loginButton:(UIButton *)sender {
-    
-    NSMutableURLRequest *req = [APIFunctions loginUser:[SecretKeys getURL] withUsername:usernameField.text withPassHash:[self hashString:passwordField.text withSalt:usernameField.text]];
+    [self login:usernameField.text withPassword:passwordField.text];
+}
+
+- (void)login:(NSString *)username withPassword:(NSString *)password {
+    NSMutableURLRequest *req = [APIFunctions loginUser:[SecretKeys getURL] withUsername:username withPassHash:[self hashString:password withSalt:username]];
     
     [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         
@@ -92,19 +106,25 @@
         NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
         
         if(dict && [[dict objectForKey:@"success"] boolValue]) {
-            
+
             NSLog(@"Successfully logged in!");
+            
+            // save the username password data
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setObject:username forKey:kUsername];
+            [defaults setObject:password forKey:kPassword];
+            [defaults synchronize];
             
             //now get access token and send to the tab view controller
             NSString *accessToken = [dict objectForKey:@"accessToken"];
-
+            
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 
                 ImagesTableViewController *imagesVC =[[ImagesTableViewController alloc] initWithAccessToken:accessToken withNavigationController:self.navigationController];
                 
                 [self.navigationController setViewControllers:@[imagesVC]];
             }];
-
+            
         } else {
             [self unableToLog];
         }
