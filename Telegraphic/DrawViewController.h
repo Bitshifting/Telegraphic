@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "DrawView.h"
-#import "UIOutlineLabel.h"
 
 @protocol DrawViewDelegate <NSObject>
 
@@ -44,7 +43,7 @@
 //scale of brush label
 @property UILabel *backLabel;
 @property UILabel *brushScaleLabel;
-@property UIOutlineLabel *timerLabel;
+@property UILabel *timerLabel;
 
 //text to pass through
 @property NSString *text;

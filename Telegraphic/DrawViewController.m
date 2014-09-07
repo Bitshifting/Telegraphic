@@ -84,8 +84,14 @@
     //set a timer
     [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerHit:) userInfo:nil repeats:YES];
     
-    timerLabel = [[UIOutlineLabel alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, heightOfButton)];
+    timerLabel = [[UILabel alloc] initWithFrame:CGRectMake([self.view frame].size.width - heightOfButton - ([self.view frame].size.width / 20), 21.0f, heightOfButton, heightOfButton)];
     [timerLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    [timerLabel setBackgroundColor:[UIColor colorWithRed:0xC0/255.0 green:0xC0/255.0 blue:0xC0/255.0 alpha:0.75]];
+    
+    [timerLabel setTextColor:[UIColor whiteColor]];
+    timerLabel.layer.cornerRadius = 10;
+    [timerLabel.layer setMasksToBounds:YES];
     
     [self.view addSubview:timerLabel];
     
