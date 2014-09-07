@@ -81,10 +81,6 @@
     
     [self.view addSubview:drawing];
     
-    if(!isEditable && !isNew) {
-        return;
-    }
-    
     //set a timer
     [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerHit:) userInfo:nil repeats:YES];
     
@@ -92,6 +88,10 @@
     [timerLabel setTextAlignment:NSTextAlignmentCenter];
     
     [self.view addSubview:timerLabel];
+    
+    if(!isEditable && !isNew) {
+        return;
+    }
     
     //set custom button type
     
