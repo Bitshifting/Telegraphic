@@ -34,6 +34,7 @@
     self = [super init];
     
     if(self) {
+        self.title = @"Favorites";
         UUID = nUUID;
         
         image = nImage;
@@ -55,14 +56,12 @@
         friendVC.delegate = self;
         
         friendVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:0 ];
-        friendVC.title = @"Friends";
         
         //initialize everyone
         everyVC = [[EveryoneTableTableViewController alloc] initWithAccessToken:accessToken];
         everyVC.delegate = self;
         
         everyVC.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemContacts tag:1];
-        everyVC.title = @"Everyone";
         
         [tabBarItemArray addObject:friendVC.tabBarItem];
         [viewContArray addObject:friendVC];
@@ -98,7 +97,7 @@
     
     //show the bar
     if([item tag] == 0) {
-        self.title = @"Friends";
+        self.title = @"Favorites";
     } else if([item tag] == 1) {
         //show the bar
         self.title = @"Everyone";

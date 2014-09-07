@@ -69,18 +69,20 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)unableToLog {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to Log In" message:@"" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-    
-    [alert show];
-}
 
--(void)unableToRegister {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to Register" message:@"" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-    
-    [alert show];
-    
-}
+//ui alert view
+//-(void)unableToLog {
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to Log In" message:@"" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+//    
+//    [alert show];
+//}
+//
+//-(void)unableToRegister {
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to Register" message:@"" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+//    
+//    [alert show];
+//    
+//}
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     [alertView dismissWithClickedButtonIndex:buttonIndex animated:YES];
@@ -99,7 +101,7 @@
         
         //if there is an error, return
         if(error) {
-            [self unableToLog];
+            //[self unableToLog];
             return;
         }
         
@@ -126,7 +128,7 @@
             }];
             
         } else {
-            [self unableToLog];
+            //[self unableToLog];
         }
         
     }];
@@ -141,7 +143,7 @@
         
         //if there is an error, return
         if(error) {
-            [self unableToRegister];
+            //[self unableToRegister];
             return;
         }
         
@@ -153,7 +155,7 @@
             //now try to log in
             [self loginButton:sender];
         } else {
-            [self unableToRegister];
+            //[self unableToRegister];
         }
         
     }];

@@ -60,6 +60,13 @@
     
     self.title = @"Images";
     
+    [self.navigationController.navigationBar
+     setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]}];
+    
+    [self.navigationController.navigationBar setTranslucent:YES];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor orangeColor]];
+    
+    
     self.edgesForExtendedLayout = UIRectEdgeAll;
     self.tableView.contentInset = UIEdgeInsetsMake(self.tabBarController.navigationController.navigationBar.frame.size.height, 0.0f, CGRectGetHeight(self.tabBarController.tabBar.frame), 0.0f);
 
@@ -178,7 +185,7 @@
     
     BOOL isLast = NO;
     
-    if(cell.backgroundColor == [UIColor greenColor]) {
+    if(cell.backgroundColor == [UIColor colorWithRed:0x0E/255.0 green:0x7A/255.0 blue:0xFB/255.0 alpha:1.0]) {
         isLast = YES;
     }
     
@@ -189,7 +196,7 @@
     
     [imageTimer invalidate];
     
-    if([[cell backgroundColor] isEqual:[UIColor greenColor]]) {
+    if([[cell backgroundColor] isEqual:[UIColor colorWithRed:0x0E/255.0 green:0x7A/255.0 blue:0xFB/255.0 alpha:1.0]]) {
         [self openDrawing:[arrOfUUID objectAtIndex:indexPath.row] withImage:[UIImage imageWithData:data]];
     } else {
         [navCont pushViewController:[[TabViewController alloc] initWithImage:[UIImage imageWithData:data] withAccessToken:accessToken isEditable:!isLast isCreate:NO withUUID:[arrOfUUID objectAtIndex:indexPath.row]] animated:YES];
@@ -218,18 +225,33 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     
-    if([[arrOfHops objectAtIndex:indexPath.row] intValue] != 0) {
-        [cell setBackgroundColor:[UIColor orangeColor]];
-    } else {
-        [cell setBackgroundColor:[UIColor greenColor]];
+    if([[arrOfHops objectAtIndex:indexPath.row] intValue] == 0) {
+        [cell setBackgroundColor:[UIColor colorWithRed:0x0E/255.0 green:0x7A/255.0 blue:0xFB/255.0 alpha:1.0]];;
     }
     
     if(cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        
+        if([[arrOfHops objectAtIndex:indexPath.row] intValue] == 0) {
+            [cell setBackgroundColor:[UIColor colorWithRed:0x0E/255.0 green:0x7A/255.0 blue:0xFB/255.0 alpha:1.0]];;
+        }
     }
     
     // set text
     cell.textLabel.text = [arrOfPrevUsers objectAtIndex:indexPath.row];
+    
+    //code for preview image
+//    //convert string to image
+//    NSString *image = [arrOfBase64 objectAtIndex:indexPath.row];
+//    
+//    NSData *data = [[NSData alloc]initWithBase64EncodedString:image options:NSDataBase64DecodingIgnoreUnknownCharacters];
+//    
+//    CGRect cellFrame = cell.contentView.frame;
+//    
+//    UIImageView *imv = [[UIImageView alloc] initWithFrame:CGRectMake(cellFrame.size.width - cellFrame.size.height, 0, cellFrame.size.height, cellFrame.size.height)];
+//    imv.image = [UIImage imageWithData:data];
+//    [cell.contentView addSubview:imv];
+    
     
     return cell;
 }

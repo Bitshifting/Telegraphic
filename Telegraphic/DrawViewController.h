@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "DrawView.h"
-#import "UIOutlineLabel.h"
 
 @protocol DrawViewDelegate <NSObject>
 
@@ -31,7 +30,6 @@
 @property UIButton *redButton;
 @property UIButton *greenButton;
 @property UIButton *blackButton;
-@property UIButton *eraseButton;
 
 //editable
 @property BOOL isEditable;
@@ -43,8 +41,9 @@
 @property DrawView *drawing;
 
 //scale of brush label
-@property UIOutlineLabel *brushScaleLabel;
-@property UIOutlineLabel *timerLabel;
+@property UILabel *backLabel;
+@property UILabel *brushScaleLabel;
+@property UILabel *timerLabel;
 
 //text to pass through
 @property NSString *text;

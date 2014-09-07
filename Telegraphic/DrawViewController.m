@@ -9,8 +9,7 @@
 #import "DrawViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
-#define NUM_BUTTONS 5
-#define BORDER_WIDTH 3.0f
+#define NUM_BUTTONS 4
 
 @interface DrawViewController ()
 
@@ -32,7 +31,7 @@
     int count;
 }
 
-@synthesize drawing, blueButton, redButton, greenButton, blackButton, eraseButton, brushScaleLabel, navCont, timer, timerLabel, delegate, text, isEditable, imageNow, isNew;
+@synthesize drawing, blueButton, redButton, greenButton, blackButton, brushScaleLabel, navCont, timer, timerLabel, delegate, text, isEditable, imageNow, isNew, backLabel;
 
 - (id)initWithNavViewController:(UINavigationController*)nNavCont withTime:(NSNumber*)nTime withText:(NSString *)nText withImage:(UIImage*)image isEditable:(BOOL)nIsEditable isCreate:(BOOL)isCreate{
     
@@ -66,36 +65,49 @@
     
     float widthOfButton = [self.view frame].size.width / NUM_BUTTONS;
     
-    //now set the drawing view above the main view
-    drawing = [[DrawView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, originHeightOfButton) difference:heightOfButton isEditable:isEditable];
+    //move picture down when it is just viewing
+    if(!isEditable && !isNew) {
+        //now set the drawing view above the main view
+        drawing = [[DrawView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, [self.view frame].size.height) difference:0 isEditable:isEditable];
+        
+        drawing.tempDrawImage.image = imageNow;
+    } else {
+        //now set the drawing view above the main view
+        drawing = [[DrawView alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, originHeightOfButton) difference:heightOfButton isEditable:isEditable];
+        
+        drawing.tempDrawImage.image = imageNow;
+    }
     
-    drawing.tempDrawImage.image = imageNow;
     
     [self.view addSubview:drawing];
     
     //set a timer
     [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerHit:) userInfo:nil repeats:YES];
     
-    timerLabel = [[UIOutlineLabel alloc] initWithFrame:CGRectMake(0, 0, [self.view frame].size.width, heightOfButton)];
+    timerLabel = [[UILabel alloc] initWithFrame:CGRectMake([self.view frame].size.width - heightOfButton - ([self.view frame].size.width / 20), 21.0f, heightOfButton, heightOfButton)];
     [timerLabel setTextAlignment:NSTextAlignmentCenter];
+    
+    [timerLabel setBackgroundColor:[UIColor colorWithRed:0xC0/255.0 green:0xC0/255.0 blue:0xC0/255.0 alpha:0.75]];
+    
+    [timerLabel setTextColor:[UIColor whiteColor]];
+    timerLabel.layer.cornerRadius = 10;
+    [timerLabel.layer setMasksToBounds:YES];
     
     [self.view addSubview:timerLabel];
     
-    if(!isEditable) {
+    if(!isEditable && !isNew) {
         return;
     }
     
     //set custom button type
     
-    blackButton = [[UIButton alloc] initWithFrame:CGRectMake(0, originHeightOfButton, [self.view frame].size.width / NUM_BUTTONS, heightOfButton)];
+    blackButton = [[UIButton alloc] initWithFrame:CGRectMake(0, originHeightOfButton, [self.view frame].size.width / NUM_BUTTONS, heightOfButton * 2)];
     
-    redButton = [[UIButton alloc] initWithFrame:CGRectMake(blackButton.frame.origin.x + blackButton.frame.size.width, originHeightOfButton, widthOfButton, heightOfButton)];
+    redButton = [[UIButton alloc] initWithFrame:CGRectMake(blackButton.frame.origin.x + blackButton.frame.size.width, originHeightOfButton, widthOfButton, heightOfButton * 2)];
     
-    greenButton = [[UIButton alloc] initWithFrame:CGRectMake(redButton.frame.origin.x + redButton.frame.size.width, originHeightOfButton, widthOfButton, heightOfButton)];
+    greenButton = [[UIButton alloc] initWithFrame:CGRectMake(redButton.frame.origin.x + redButton.frame.size.width, originHeightOfButton, widthOfButton, heightOfButton * 2)];
     
-    blueButton = [[UIButton alloc] initWithFrame:CGRectMake(greenButton.frame.origin.x + greenButton.frame.size.width, originHeightOfButton, widthOfButton, heightOfButton)];
-    
-    eraseButton = [[UIButton alloc] initWithFrame:CGRectMake(blueButton.frame.origin.x + blueButton.frame.size.width, originHeightOfButton, widthOfButton, heightOfButton)];
+    blueButton = [[UIButton alloc] initWithFrame:CGRectMake(greenButton.frame.origin.x + greenButton.frame.size.width, originHeightOfButton, widthOfButton, heightOfButton * 2)];
     
     
     //now initialize the colors of the button
@@ -104,34 +116,15 @@
     [greenButton setBackgroundColor:[UIColor greenColor]];
     [blueButton setBackgroundColor:[UIColor blueColor]];
     
-    [eraseButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [eraseButton setTitle:@"Erase" forState:UIControlStateNormal];
-    
-    //border width
-    [blackButton.layer setBorderWidth:BORDER_WIDTH];
-    [redButton.layer setBorderWidth:BORDER_WIDTH];
-    [greenButton.layer setBorderWidth:BORDER_WIDTH];
-    [blueButton.layer setBorderWidth:BORDER_WIDTH];
-    [eraseButton.layer setBorderWidth:BORDER_WIDTH];
-    
     [self.view addSubview:blackButton];
     [self.view addSubview:redButton];
     [self.view addSubview:greenButton];
     [self.view addSubview:blueButton];
-    [self.view addSubview:eraseButton];
-
-    //set black button as selected color and the rest as clear
-    [blackButton.layer setBorderColor:[[UIColor purpleColor] CGColor]];
-    [redButton.layer setBorderColor:[[UIColor clearColor] CGColor]];
-    [greenButton.layer setBorderColor:[[UIColor clearColor] CGColor]];
-    [blueButton.layer setBorderColor:[[UIColor clearColor] CGColor]];
-    [eraseButton.layer setBorderColor:[[UIColor clearColor] CGColor]];
     
     [blackButton addTarget:self action:@selector(setColor:) forControlEvents:UIControlEventTouchDown];
     [redButton addTarget:self action:@selector(setColor:) forControlEvents:UIControlEventTouchDown];
     [greenButton addTarget:self action:@selector(setColor:) forControlEvents:UIControlEventTouchDown];
     [blueButton addTarget:self action:@selector(setColor:) forControlEvents:UIControlEventTouchDown];
-    [eraseButton addTarget:self action:@selector(setColor:) forControlEvents:UIControlEventTouchDown];
     
     selectedButton = blackButton;
     
@@ -141,14 +134,27 @@
     [self.view addGestureRecognizer:pinch];
     
     //add label
-    brushScaleLabel = [[UIOutlineLabel alloc] initWithFrame:CGRectMake(0, originHeightOfButton - heightOfButton, [self.view frame].size.width, heightOfButton)];
+    brushScaleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, originHeightOfButton - heightOfButton, [self.view frame].size.width, heightOfButton)];
     
     //now add text
     [brushScaleLabel setTextAlignment:NSTextAlignmentCenter];
     [brushScaleLabel setText:[NSString stringWithFormat:@"Brush Size: %f", [drawing getBrushSize]]];
     [brushScaleLabel setTextColor:[UIColor whiteColor]];
     
+    //now add back label
+    backLabel = [[UILabel alloc] initWithFrame:brushScaleLabel.frame];
+    [backLabel setBackgroundColor:[UIColor blackColor]];
+    
+    
+    [brushScaleLabel setBackgroundColor:[UIColor clearColor]];
+    
     [self.view addSubview:brushScaleLabel];
+    [self.view addSubview:backLabel];
+    
+    [self.view bringSubviewToFront:brushScaleLabel];
+    [self.view sendSubviewToBack:backLabel];
+    
+    [self.view sendSubviewToBack:drawing];
     
     count = 0;
 }
@@ -180,11 +186,9 @@
 
 -(IBAction)setColor:(id)sender {
     //set the previous selected button border's to clear color
-    [selectedButton.layer setBorderColor:[[UIColor clearColor] CGColor]];
     
     //now set new button to purple color
     selectedButton = sender;
-    [selectedButton.layer setBorderColor:[[UIColor purpleColor] CGColor]];
     
     //now check to see what button it is
     if([sender isEqual:blackButton]) {
@@ -195,10 +199,12 @@
         [drawing setColorRed:0.0 green:1.0 blue:0.0];
     } else if([sender isEqual:blueButton]) {
         [drawing setColorRed:0.0 green:0.0 blue:1.0];
-    } else if([sender isEqual:eraseButton]) {
-        [drawing setColorRed:1.0 green:1.0 blue:1.0];
     }
-
+    
+    [UIView transitionWithView:backLabel duration:0.25 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+        [backLabel setBackgroundColor:[sender backgroundColor]];
+        
+    } completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {
