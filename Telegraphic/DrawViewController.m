@@ -82,7 +82,10 @@
     [self.view addSubview:drawing];
     
     //set a timer
-    [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerHit:) userInfo:nil repeats:YES];
+    
+    NSTimer *tempTimer = [[NSTimer alloc] initWithFireDate:[NSDate date] interval:1.0f target:self selector:@selector(timerHit:) userInfo:nil repeats:YES];
+    
+    [[NSRunLoop mainRunLoop] addTimer:tempTimer forMode:NSRunLoopCommonModes];
     
     timerLabel = [[UILabel alloc] initWithFrame:CGRectMake([self.view frame].size.width - heightOfButton - ([self.view frame].size.width / 20), 21.0f, heightOfButton, heightOfButton)];
     [timerLabel setTextAlignment:NSTextAlignmentCenter];

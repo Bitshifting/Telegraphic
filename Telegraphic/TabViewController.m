@@ -35,6 +35,7 @@
     
     if(self) {
         self.title = @"Favorites";
+        
         UUID = nUUID;
         
         image = nImage;
@@ -71,16 +72,13 @@
         //now add the everyone
         self.tabBarItemArray = tabBarItemArray;
         [self setViewControllers:@[friendVC, everyVC]];
+        [self.tabBarController setViewControllers:@[friendVC, everyVC]];
         [self openDrawing:nil];
-        
-        
         
     }
     
     return self;
 }
-
-
 
 - (void)viewDidLoad
 {
@@ -102,6 +100,24 @@
         //show the bar
         self.title = @"Everyone";
     }
+    
+    //animate view controllers
+    
+//    if(self.selectedViewController.tabBarItem.tag != item.tag) {
+//        UIView * fromView = self.selectedViewController.view;
+//        UIView * toView = [[self.viewControllers objectAtIndex:item.tag] view];
+    
+        // Transition using a page curl.
+//        [UIView transitionFromView:fromView
+//                            toView:toView
+//                          duration:0.5
+//                           options:(item.tag > self.tabBarController.selectedIndex ? UIViewAnimationOptionTransitionFlipFromBottom : UIViewAnimationOptionTransitionFlipFromTop)
+//                        completion:^(BOOL finished) {
+//                            if (finished) {
+//                                self.tabBarController.selectedIndex = item.tag;
+//                            }
+//                        }];
+//    }
     
 }
 

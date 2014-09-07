@@ -31,9 +31,7 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+-(void)loadRestOfView {
     CAGradientLayer *gradient = [CAGradientLayer layer];
     gradient.bounds = self.view.bounds;
     gradient.colors = [NSArray arrayWithObjects:(id)[[UIColor yellowColor] CGColor], (id)[[UIColor orangeColor] CGColor], nil];
@@ -41,15 +39,76 @@
     
     [self registerKeyboardNotifications];
     
-    queue = [[NSOperationQueue alloc] init];
-    
-    
     usernameField.delegate = self;
     passwordField.delegate = self;
     self.originalCenter = self.view.center;
     NSLog(@"%@", NSStringFromCGPoint(self.originalCenter));
     // Do any additional setup after loading the view from its nib.
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    //check defaults and see if it is there
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    NSString *pass = [defaults objectForKey:@"Password"];
+    NSString *username = [defaults objectForKey:@"Username"];
+    
+    queue = [[NSOperationQueue alloc] init];
+    
+    if(([pass length] != 0) && ([username length] != 0)) {
+        [self logIn:username withPass:pass];
+    } else {
+        [self loadRestOfView];
+    }
+}
+
+- (void) logIn:(NSString*)username withPass:(NSString*)pass {
+    
+    NSMutableURLRequest *req = [APIFunctions loginUser:[SecretKeys getURL] withUsername:username withPassHash:[self hashString:pass withSalt:username]];
+    
+    [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+        //if there is an error, return
+        if(!error) {
+            //[self unableToLog];
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
+            
+            if(dict && [[dict objectForKey:@"success"] boolValue]) {
+                NSLog(@"Successfully logged in!");
+                
+                // Store the data
+                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+                
+                [defaults setObject:username forKey:@"Username"];
+                [defaults setObject:pass forKey:@"Password"];
+                
+                [defaults synchronize];
+                
+                //now get access token and send to the tab view controller
+                NSString *accessToken = [dict objectForKey:@"accessToken"];
+                
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    
+                    ImagesTableViewController *imagesVC =[[ImagesTableViewController alloc] initWithAccessToken:accessToken withNavigationController:self.navigationController];
+                    
+                    [self.navigationController setViewControllers:@[imagesVC]];
+                }];
+                
+            } else {
+                //[self unableToLog];
+                [self loadRestOfView];
+            }
+        } else {
+            [self loadRestOfView];
+        }
+
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -62,15 +121,15 @@
 //ui alert view
 //-(void)unableToLog {
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to Log In" message:@"" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-//    
+//
 //    [alert show];
 //}
 //
 //-(void)unableToRegister {
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to Register" message:@"" delegate:self cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-//    
+//
 //    [alert show];
-//    
+//
 //}
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -79,39 +138,8 @@
 
 - (IBAction)loginButton:(UIButton *)sender {
     
-    NSMutableURLRequest *req = [APIFunctions loginUser:[SecretKeys getURL] withUsername:usernameField.text withPassHash:[self hashString:passwordField.text withSalt:usernameField.text]];
-    
-    [NSURLConnection sendAsynchronousRequest:req queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-        
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-        
-        //if there is an error, return
-        if(error) {
-            //[self unableToLog];
-            return;
-        }
-        
-        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil];
-        
-        if(dict && [[dict objectForKey:@"success"] boolValue]) {
-            
-            NSLog(@"Successfully logged in!");
-            
-            //now get access token and send to the tab view controller
-            NSString *accessToken = [dict objectForKey:@"accessToken"];
-
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                
-                ImagesTableViewController *imagesVC =[[ImagesTableViewController alloc] initWithAccessToken:accessToken withNavigationController:self.navigationController];
-                
-                [self.navigationController setViewControllers:@[imagesVC]];
-            }];
-
-        } else {
-            //[self unableToLog];
-        }
-        
-    }];
+    //log in using function
+    [self logIn:usernameField.text withPass:passwordField.text];
 }
 
 - (IBAction)creatAccountButton:(UIButton *)sender {
@@ -206,7 +234,7 @@
 
 #pragma mark crypto
 -(NSString *) hashString :(NSString *) data withSalt: (NSString *) salt {
-
+    
     const char *cData = [data cStringUsingEncoding:NSUTF8StringEncoding];
     unsigned char cHMAC[CC_SHA256_DIGEST_LENGTH];
     CCHmac(kCCHmacAlgSHA256, nil, 0, cData, strlen(cData), cHMAC);

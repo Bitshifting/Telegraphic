@@ -11,7 +11,7 @@
 #import "SecretKeys.h"
 #import "TabViewController.h"
 
-#define TIME_TO_EDIT 5
+#define TIME_TO_EDIT 10
 #define MAX_HOPS 5
 
 @interface ImagesTableViewController ()
@@ -54,11 +54,25 @@
     [imageTimer fire];
 }
 
+-(IBAction)signOut:(id)sender {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    //remove defaults
+    [defaults removeObjectForKey:@"Username"];
+    [defaults removeObjectForKey:@"Password"];
+    [defaults synchronize];
+    
+    //quit program
+    exit(0);
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
     self.title = @"Images";
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(signOut:)];
     
     [self.navigationController.navigationBar
      setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]}];
